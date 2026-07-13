@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pamba Fits Admin Dashboard</title>
+
+<!-- FONT -->
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<!-- ICONS -->
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#050505;
+color:white;
+overflow-x:hidden;
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:300px;
+height:100vh;
+background:#0d0d0d;
+border-right:1px solid rgba(255,255,255,.08);
+padding:30px;
+position:fixed;
+left:0;
+top:0;
+overflow-y:auto;
+}
+
+.logo{
+font-size:35px;
+font-weight:900;
+letter-spacing:3px;
+margin-bottom:50px;
+color:orange;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.menu-item{
+height:60px;
+display:flex;
+align-items:center;
+gap:18px;
+padding:0 20px;
+border-radius:18px;
+cursor:pointer;
+transition:.3s;
+background:rgba(255,255,255,.03);
+}
+
+.menu-item:hover{
+background:orange;
+transform:translateX(5px);
+}
+
+.menu-item i{
+width:22px;
+height:22px;
+}
+
+/* MAIN */
+
+.main{
+margin-left:300px;
+width:calc(100% - 300px);
+padding:40px;
+}
+
+/* TOP */
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:20px;
+margin-bottom:40px;
+}
+
+.top h1{
+font-size:55px;
+font-weight:900;
+line-height:55px;
+}
+
+.top p{
+color:gray;
+margin-top:15px;
+}
+
+.admin-box{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+padding:15px 20px;
+border-radius:18px;
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.admin-img{
+width:50px;
+height:50px;
+border-radius:50%;
+background:orange;
+display:flex;
+justify-content:center;
+align-items:center;
+font-weight:900;
+font-size:20px;
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+margin-bottom:50px;
+}
+
+.stat{
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+padding:30px;
+border-radius:30px;
+}
+
+.stat h2{
+font-size:50px;
+color:orange;
+font-weight:900;
+}
+
+.stat p{
+margin-top:10px;
+color:gray;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:30px;
+}
+
+/* FORM */
+
+.panel{
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+border-radius:35px;
+padding:35px;
+margin-bottom:30px;
+}
+
+.panel h2{
+font-size:35px;
+margin-bottom:30px;
+font-weight:900;
+}
+
+.form-group{
+margin-bottom:25px;
+}
+
+.form-group label{
+display:block;
+margin-bottom:12px;
+color:#ddd;
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:18px;
+border-radius:18px;
+border:none;
+outline:none;
+background:rgba(255,255,255,.06);
+color:white;
+font-size:15px;
+}
+
+textarea{
+height:150px;
+resize:none;
+}
+
+::placeholder{
+color:#888;
+}
+
+.upload-box{
+height:220px;
+border:2px dashed rgba(255,255,255,.15);
+border-radius:25px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:15px;
+cursor:pointer;
+transition:.3s;
+text-align:center;
+padding:20px;
+}
+
+.upload-box:hover{
+border-color:orange;
+background:rgba(255,115,0,.06);
+}
+
+.upload-box i{
+width:45px;
+height:45px;
+color:orange;
+}
+
+.theme-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+.theme{
+height:70px;
+border-radius:18px;
+cursor:pointer;
+border:2px solid transparent;
+transition:.3s;
+}
+
+.theme:hover{
+transform:scale(1.05);
+}
+
+.theme.active{
+border-color:white;
+}
+
+.orange{
+background:linear-gradient(135deg,orange,#ff0055);
+}
+
+.blue{
+background:linear-gradient(135deg,#00bfff,#003cff);
+}
+
+.green{
+background:linear-gradient(135deg,#00ff88,#008f5a);
+}
+
+.purple{
+background:linear-gradient(135deg,#c000ff,#4f00ff);
+}
+
+/* BUTTONS */
+
+.btn{
+width:100%;
+height:60px;
+border:none;
+border-radius:20px;
+background:orange;
+color:white;
+font-size:17px;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+}
+
+.btn:hover{
+transform:scale(1.02);
+}
+
+/* PRODUCT LIST */
+
+.product-list{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.product-item{
+display:flex;
+gap:15px;
+background:rgba(255,255,255,.05);
+padding:15px;
+border-radius:20px;
+align-items:center;
+}
+
+.product-item img{
+width:90px;
+height:90px;
+border-radius:18px;
+object-fit:cover;
+}
+
+.product-item h3{
+font-size:20px;
+}
+
+.product-item p{
+color:gray;
+margin-top:5px;
+font-size:14px;
+}
+
+.stock{
+margin-top:10px;
+display:inline-block;
+padding:8px 14px;
+border-radius:15px;
+font-size:12px;
+font-weight:700;
+}
+
+.instock{
+background:rgba(0,255,100,.15);
+color:#00ff88;
+}
+
+.outstock{
+background:rgba(255,0,0,.15);
+color:#ff4d4d;
+}
+
+/* CONTROL */
+
+.control-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+}
+
+.control-box{
+background:rgba(255,255,255,.05);
+padding:25px;
+border-radius:25px;
+}
+
+.control-box h3{
+font-size:24px;
+margin-bottom:15px;
+}
+
+/* MOBILE */
+
+@media(max-width:1100px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:850px){
+
+.sidebar{
+left:-100%;
+}
+
+.main{
+margin-left:0;
+width:100%;
+padding:20px;
+}
+
+.top h1{
+font-size:40px;
+line-height:45px;
+}
+
+.theme-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.control-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+PAMBA FITS
+</div>
+
+<div class="menu">
+
+<div class="menu-item">
+
+<i data-lucide="layout-dashboard"></i>
+
+<span>Dashboard</span>
+
+</div>
+
+<div class="menu-item">
+
+<i data-lucide="shopping-bag"></i>
+
+<span>Products</span>
+
+</div>
+
+<div class="menu-item">
+
+<i data-lucide="image"></i>
+
+<span>Landing Page</span>
+
+</div>
+
+<div class="menu-item">
+
+<i data-lucide="tag"></i>
+
+<span>Offers & Sales</span>
+
+</div>
+
+<div class="menu-item">
+
+<i data-lucide="palette"></i>
+
+<span>Theme Control</span>
+
+</div>
+
+<div class="menu-item">
+
+<i data-lucide="users"></i>
+
+<span>Users</span>
+
+</div>
+
+<div class="menu-item">
+
+<i data-lucide="heart"></i>
+
+<span>Liked Products</span>
+
+</div>
+
+<div class="menu-item">
+
+<i data-lucide="bot"></i>
+
+<span>AI Assistant</span>
+
+</div>
+
+<div class="menu-item">
+
+<i data-lucide="settings"></i>
+
+<span>Settings</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOP -->
+
+<div class="top">
+
+<div>
+
+<h1>
+TENDO <br>
+FITS
+</h1>
+
+<p>
+Control every section of your website from here.
+</p>
+
+</div>
+
+<div class="admin-box">
+
+<div class="admin-img">
+A
+</div>
+
+<div>
+
+<h3>Admin</h3>
+
+<p>Full Access</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+
+<h2>124</h2>
+
+<p>Products Added</p>
+
+</div>
+
+<div class="stat">
+
+<h2>2.4K</h2>
+
+<p>Website Visitors</p>
+
+</div>
+
+<div class="stat">
+
+<h2>540</h2>
+
+<p>Orders</p>
+
+</div>
+
+<div class="stat">
+
+<h2>95%</h2>
+
+<p>Customer Satisfaction</p>
+
+</div>
+
+</div>
+
+<!-- GRID -->
+
+<div class="grid">
+
+<!-- LEFT -->
+
+<div>
+
+<!-- ADD PRODUCT -->
+
+<div class="panel">
+
+<h2>
+Add New Product
+</h2>
+
+<div class="form-group">
+
+<label>
+Product Name
+</label>
+
+<input type="text" placeholder="Enter product name">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Product Description
+</label>
+
+<textarea placeholder="Enter full product description"></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Product Price
+</label>
+
+<input type="text" placeholder="$120">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Product Brand
+</label>
+
+<input type="text" placeholder="Nike, Gucci, Versace...">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Product Category
+</label>
+
+<select>
+
+<option>Prom Fits</option>
+<option>Dresses</option>
+<option>Shoes</option>
+<option>Luxury Wear</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Available Sizes
+</label>
+
+<input type="text" placeholder="S, M, L, XL">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Upload Main Product Image
+</label>
+
+<div class="upload-box">
+
+<i data-lucide="upload-cloud"></i>
+
+<h3>
+Choose Image
+</h3>
+
+<p>
+Upload from gallery, folders or use image links later.
+</p>
+
+</div>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Upload Related Product Images
+</label>
+
+<div class="upload-box">
+
+<i data-lucide="images"></i>
+
+<h3>
+Add Related Photos
+</h3>
+
+<p>
+These will appear in the product popup.
+</p>
+
+</div>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Stock Status
+</label>
+
+<select>
+
+<option>In Stock</option>
+<option>Out Of Stock</option>
+
+</select>
+
+</div>
+
+<button class="btn">
+Publish Product
+</button>
+
+</div>
+
+<!-- SALES -->
+
+<div class="panel">
+
+<h2>
+Sales & Promotions
+</h2>
+
+<div class="form-group">
+
+<label>
+Sale Title
+</label>
+
+<input type="text" placeholder="Mega Fashion Sale">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Promotion Description
+</label>
+
+<textarea placeholder="Describe the promotion"></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Sale Date
+</label>
+
+<input type="date">
+
+</div>
+
+<button class="btn">
+Publish Promotion
+</button>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div>
+
+<!-- WEBSITE CONTROL -->
+
+<div class="panel">
+
+<h2>
+Website Control
+</h2>
+
+<div class="control-grid">
+
+<div class="control-box">
+
+<h3>
+Landing Image
+</h3>
+
+<p>
+Change first page hero image.
+</p>
+
+</div>
+
+<div class="control-box">
+
+<h3>
+Website Logo
+</h3>
+
+<p>
+Upload and replace logo.
+</p>
+
+</div>
+
+<div class="control-box">
+
+<h3>
+Texts & Titles
+</h3>
+
+<p>
+Edit texts on every page.
+</p>
+
+</div>
+
+<div class="control-box">
+
+<h3>
+Color Themes
+</h3>
+
+<p>
+Switch website colors easily.
+</p>
+
+</div>
+
+</div>
+
+<!-- THEMES -->
+
+<div class="theme-grid">
+
+<div class="theme orange active"></div>
+
+<div class="theme blue"></div>
+
+<div class="theme green"></div>
+
+<div class="theme purple"></div>
+
+</div>
+
+</div>
+
+<!-- RECENT PRODUCTS -->
+
+<div class="panel">
+
+<h2>
+Recent Products
+</h2>
+
+<div class="product-list">
+
+<div class="product-item">
+
+<img src="https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?q=80&w=1200&auto=format&fit=crop">
+
+<div>
+
+<h3>
+Royal Suit
+</h3>
+
+<p>
+Luxury prom collection
+</p>
+
+<div class="stock instock">
+IN STOCK
+</div>
+
+</div>
+
+</div>
+
+<div class="product-item">
+
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop">
+
+<div>
+
+<h3>
+Luxury Sneakers
+</h3>
+
+<p>
+Premium street fashion
+</p>
+
+<div class="stock outstock">
+OUT OF STOCK
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- AI -->
+
+<div class="panel">
+
+<h2>
+Future AI Assistant
+</h2>
+
+<p style="line-height:35px;color:#bbb;">
+
+This section will later help you:
+<br><br>
+
+• Track customer activity
+<br>
+• Recommend best selling products
+<br>
+• Detect trends
+<br>
+• Manage users
+<br>
+• Assist in adding products
+<br>
+• Track likes and engagement
+<br>
+• Generate smart reports
+
+</p>
+    
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+lucide.createIcons();
+
+</script>
+
+</body>
+</html>

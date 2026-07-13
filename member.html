@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Become a UCCEC Member</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #050505;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at top left, #c8102e33, transparent 40%),
+        radial-gradient(circle at bottom right, #ff7b0033, transparent 35%);
+      z-index: -1;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255, 255, 255, .05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 35px;
+      padding: 45px;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, .4);
+      position: relative;
+    }
+
+    .logo {
+      width: 130px;
+      margin: auto;
+      display: block;
+      margin-bottom: 20px;
+      filter: brightness(1.1);
+    }
+
+    h1 {
+      font-size: 38px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .subtitle {
+      color: #bbbbbb;
+      margin-bottom: 35px;
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, .04);
+      padding: 30px;
+      border-radius: 25px;
+      text-align: left;
+      margin-bottom: 30px;
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .info-box h2 {
+      color: #ff8c00;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .info-box p {
+      color: #ddd;
+      line-height: 30px;
+    }
+
+    .fee {
+      margin-top: 20px;
+      background: #c8102e;
+      padding: 18px;
+      border-radius: 18px;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+      color: white;
+    }
+
+    .agreement {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin: 30px 0;
+      text-align: left;
+      color: #ddd;
+      line-height: 28px;
+    }
+
+    .agreement input {
+      width: 22px;
+      height: 22px;
+      margin-top: 3px;
+      accent-color: #c8102e;
+      flex-shrink: 0;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      flex: 1;
+      padding: 18px;
+      font-size: 17px;
+      font-weight: 700;
+      border: none;
+      border-radius: 18px;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .register {
+      background: #c8102e;
+      color: white;
+    }
+
+    .register:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(200, 16, 46, .4);
+    }
+
+    .login {
+      background: white;
+      color: black;
+    }
+
+    .login:hover {
+      transform: translateY(-3px);
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .footer {
+      margin-top: 30px;
+      color: #888;
+      font-size: 14px;
+    }
+
+    /* ===== REGISTRATION CARD (overlay) ===== */
+    .register-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .register-overlay.active {
+      display: flex;
+    }
+
+    .register-card {
+      width: 100%;
+      max-width: 580px;
+      background: #1a1a1a;
+      border-radius: 35px;
+      padding: 40px 35px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, .7);
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .register-card::-webkit-scrollbar {
+      width: 4px;
+    }
+    .register-card::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .register-card::-webkit-scrollbar-thumb {
+      background: #c8102e;
+      border-radius: 10px;
+    }
+
+    .register-card .close-btn {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 28px;
+      cursor: pointer;
+      transition: .2s;
+      padding: 0 8px;
+    }
+    .register-card .close-btn:hover {
+      color: #c8102e;
+      transform: rotate(90deg);
+    }
+
+    .register-card h2 {
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .register-card .reg-sub {
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      color: #ccc;
+      font-size: 14px;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, .04);
+      color: white;
+      font-size: 15px;
+      outline: none;
+      transition: .2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #c8102e;
+      background: rgba(255, 255, 255, .06);
+    }
+
+    .form-group select option {
+      background: #1a1a1a;
+      color: white;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .payment-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0 10px;
+    }
+
+    .payment-options button {
+      padding: 14px 10px;
+      border-radius: 16px;
+      border: 2px solid rgba(255, 255, 255, .06);
+      background: rgba(255, 255, 255, .04);
+      color: #ccc;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .25s;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .payment-options button i {
+      font-size: 18px;
+    }
+
+    .payment-options button:hover {
+      border-color: rgba(200, 16, 46, .4);
+      background: rgba(200, 16, 46, .08);
+    }
+
+    .payment-options button.active {
+      border-color: #c8102e;
+      background: rgba(200, 16, 46, .15);
+      color: white;
+    }
+
+    .submit-reg {
+      width: 100%;
+      padding: 18px;
+      background: #c8102e;
+      color: white;
+      border: none;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .3s;
+      margin-top: 10px;
+    }
+
+    .submit-reg:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(200, 16, 46, .4);
+    }
+
+    .reg-footer {
+      text-align: center;
+      margin-top: 18px;
+      color: #888;
+      font-size: 13px;
+    }
+    .reg-footer a {
+      color: #c8102e;
+      text-decoration: none;
+    }
+    .reg-footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+      .card { padding: 30px; }
+      h1 { font-size: 30px; }
+      .buttons { flex-direction: column; }
+      .form-row { grid-template-columns: 1fr; }
+      .payment-options { grid-template-columns: 1fr 1fr; }
+      .register-card { padding: 30px 20px; }
+    }
+
+    @media (max-width: 450px) {
+      .payment-options { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MAIN CARD -->
+  <div class="card">
+    <img src="https://uccec.com/wp-content/uploads/2025/08/logo_uccec.png" class="logo" alt="UCCEC Logo">
+    <h1>Become a UCCEC Member</h1>
+    <p class="subtitle">Join Uganda's growing community of entrepreneurs, investors and business leaders.</p>
+
+    <div class="info-box">
+      <h2>How to become a UCCEC Member</h2>
+      <p>
+        UCCEC has different membership categories with varying fees.
+        Interested eligible persons pay a one-time registration fee of
+        <strong>UGX 50,000</strong> (Approx. <strong>USD 14.08</strong>)
+        to become members of the organization.
+      </p>
+      <div class="fee">One-Time Registration Fee<br>UGX 50,000</div>
+    </div>
+
+    <div class="agreement">
+      <input type="checkbox" id="agree">
+      <label for="agree">
+        I have read and understood the membership requirements and I agree to abide by the rules, regulations and code of conduct of the Uganda Chamber of Commerce & Entrepreneurs' League Confederation (UCCEC).
+      </label>
+    </div>
+
+    <div class="buttons">
+      <button class="register" id="registerBtn" disabled>Register Now</button>
+      <button class="login">Sign In</button>
+    </div>
+
+    <div class="footer">© 2026 Uganda Chamber of Commerce & Entrepreneurs' League Confederation</div>
+  </div>
+
+  <!-- ===== REGISTRATION OVERLAY (card with credentials + payment) ===== -->
+  <div class="register-overlay" id="registerOverlay">
+    <div class="register-card">
+      <button class="close-btn" id="closeReg"><i class="fas fa-times"></i></button>
+
+      <h2>Complete Registration</h2>
+      <p class="reg-sub">Fill in your details and choose a payment method</p>
+
+      <form id="regForm" onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Doe" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+256 700 000 000" required>
+        </div>
+
+        <div class="form-group">
+          <label>Membership Category</label>
+          <select required>
+            <option value="">Select category</option>
+            <option value="individual">Individual – UGX 50,000</option>
+            <option value="corporate">Corporate – UGX 250,000</option>
+            <option value="student">Student – UGX 25,000</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Payment Method</label>
+          <div class="payment-options" id="paymentOptions">
+            <button type="button" data-method="mobile" class="active">
+              <i class="fas fa-mobile-alt"></i> Mobile Money
+            </button>
+            <button type="button" data-method="card">
+              <i class="fas fa-credit-card"></i> Card
+            </button>
+            <button type="button" data-method="bank">
+              <i class="fas fa-university"></i> Bank
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-reg" id="submitReg">
+          <i class="fas fa-check-circle" style="margin-right: 10px;"></i> Pay & Register
+        </button>
+
+        <div class="reg-footer">
+          By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // --- Agreement checkbox ---
+    const agree = document.getElementById('agree');
+    const registerBtn = document.getElementById('registerBtn');
+
+    agree.addEventListener('change', () => {
+      registerBtn.disabled = !agree.checked;
+    });
+
+    // --- Open registration overlay ---
+    registerBtn.onclick = () => {
+      document.getElementById('registerOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    // --- Close overlay ---
+    function closeOverlay() {
+      document.getElementById('registerOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('closeReg').onclick = closeOverlay;
+
+    // Close on backdrop click
+    document.getElementById('registerOverlay').onclick = (e) => {
+      if (e.target === e.currentTarget) closeOverlay();
+    };
+
+    // ESC key to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeOverlay();
+    });
+
+    // --- Payment method selection ---
+    const paymentBtns = document.querySelectorAll('#paymentOptions button');
+    paymentBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        paymentBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // --- Sign In button ---
+    document.querySelector('.login').onclick = () => {
+      window.location.href = 'login.html';
+    };
+
+    // --- Submit registration (demo) ---
+    document.getElementById('submitReg').onclick = function(e) {
+      e.preventDefault();
+      // Gather selected payment method
+      const activePayment = document.querySelector('#paymentOptions .active');
+      const method = activePayment ? activePayment.textContent.trim() : 'Mobile Money';
+
+      alert('✅ Registration submitted!\n\n' +
+            'Payment Method: ' + method + '\n' +
+            'You will receive a confirmation email shortly.\n\n' +
+            '(This is a demo — integrate with your backend.)');
+
+      // Optionally close
+      closeOverlay();
+      // Reset form (optional)
+      document.getElementById('regForm').reset();
+      // Reset payment selection to default
+      paymentBtns.forEach(b => b.classList.remove('active'));
+      document.querySelector('#paymentOptions button[data-method="mobile"]').classList.add('active');
+    };
+  </script>
+  <!-- Font Awesome (if not already in head) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+<!-- Booking System -->
+<script src="booking-system.js"></script>
+</body>
+</html>
