@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Become a UCCEC Member</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Register · UCCEC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
   <style>
     * {
@@ -15,531 +15,363 @@
     }
 
     body {
-      background: #050505;
+      background: #0a0a0a;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 30px;
-      overflow-x: hidden;
     }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background:
-        radial-gradient(circle at top left, #c8102e33, transparent 40%),
-        radial-gradient(circle at bottom right, #ff7b0033, transparent 35%);
       z-index: -1;
+      background: radial-gradient(circle at top left, rgba(200,16,46,0.15), transparent 40%),
+                  radial-gradient(circle at bottom right, rgba(255,123,0,0.10), transparent 35%),
+                  #0a0a0a;
     }
 
-    .card {
+    .auth-card {
       width: 100%;
-      max-width: 700px;
-      background: rgba(255, 255, 255, .05);
+      max-width: 500px;
+      background: rgba(255,255,255,0.04);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, .08);
-      border-radius: 35px;
-      padding: 45px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 32px;
+      padding: 45px 35px;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+      animation: fadeUp 0.6s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .auth-card .logo {
       text-align: center;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, .4);
-      position: relative;
+      margin-bottom: 16px;
     }
 
-    .logo {
-      width: 130px;
-      margin: auto;
-      display: block;
-      margin-bottom: 20px;
-      filter: brightness(1.1);
+    .auth-card .logo img {
+      height: 65px;
+      width: auto;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
     }
 
-    h1 {
-      font-size: 38px;
+    .auth-card h1 {
+      color: white;
+      font-size: 30px;
       font-weight: 800;
-      margin-bottom: 10px;
-      color: white;
-    }
-
-    .subtitle {
-      color: #bbbbbb;
-      margin-bottom: 35px;
-    }
-
-    .info-box {
-      background: rgba(255, 255, 255, .04);
-      padding: 30px;
-      border-radius: 25px;
-      text-align: left;
-      margin-bottom: 30px;
-      border: 1px solid rgba(255, 255, 255, .08);
-    }
-
-    .info-box h2 {
-      color: #ff8c00;
-      margin-bottom: 15px;
-      font-size: 24px;
-    }
-
-    .info-box p {
-      color: #ddd;
-      line-height: 30px;
-    }
-
-    .fee {
-      margin-top: 20px;
-      background: #c8102e;
-      padding: 18px;
-      border-radius: 18px;
-      font-size: 20px;
-      font-weight: 700;
       text-align: center;
-      color: white;
+      margin-bottom: 4px;
     }
 
-    .agreement {
-      display: flex;
-      align-items: flex-start;
-      gap: 15px;
-      margin: 30px 0;
-      text-align: left;
-      color: #ddd;
-      line-height: 28px;
-    }
-
-    .agreement input {
-      width: 22px;
-      height: 22px;
-      margin-top: 3px;
-      accent-color: #c8102e;
-      flex-shrink: 0;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    button {
-      flex: 1;
-      padding: 18px;
-      font-size: 17px;
-      font-weight: 700;
-      border: none;
-      border-radius: 18px;
-      cursor: pointer;
-      transition: .3s;
-    }
-
-    .register {
-      background: #c8102e;
-      color: white;
-    }
-
-    .register:hover:not(:disabled) {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(200, 16, 46, .4);
-    }
-
-    .login {
-      background: white;
-      color: black;
-    }
-
-    .login:hover {
-      transform: translateY(-3px);
-    }
-
-    button:disabled {
-      opacity: .5;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .footer {
-      margin-top: 30px;
-      color: #888;
-      font-size: 14px;
-    }
-
-    /* ===== REGISTRATION CARD (overlay) ===== */
-    .register-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      padding: 20px;
-    }
-
-    .register-overlay.active {
-      display: flex;
-    }
-
-    .register-card {
-      width: 100%;
-      max-width: 580px;
-      background: #1a1a1a;
-      border-radius: 35px;
-      padding: 40px 35px;
-      border: 1px solid rgba(255, 255, 255, .08);
-      box-shadow: 0 40px 100px rgba(0, 0, 0, .7);
-      max-height: 90vh;
-      overflow-y: auto;
-      position: relative;
-    }
-
-    .register-card::-webkit-scrollbar {
-      width: 4px;
-    }
-    .register-card::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    .register-card::-webkit-scrollbar-thumb {
-      background: #c8102e;
-      border-radius: 10px;
-    }
-
-    .register-card .close-btn {
-      position: absolute;
-      top: 18px;
-      right: 22px;
-      background: none;
-      border: none;
+    .auth-card .sub {
       color: #aaa;
-      font-size: 28px;
-      cursor: pointer;
-      transition: .2s;
-      padding: 0 8px;
-    }
-    .register-card .close-btn:hover {
-      color: #c8102e;
-      transform: rotate(90deg);
+      text-align: center;
+      font-size: 15px;
+      margin-bottom: 24px;
     }
 
-    .register-card h2 {
-      color: white;
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 8px;
+    .auth-card .sub a {
+      color: #ff8c00;
+      text-decoration: none;
     }
 
-    .register-card .reg-sub {
-      color: #aaa;
-      font-size: 14px;
-      margin-bottom: 28px;
+    .auth-card .sub a:hover {
+      text-decoration: underline;
     }
 
-    .form-group {
-      margin-bottom: 20px;
-      text-align: left;
+    .auth-card .form-group {
+      margin-bottom: 16px;
     }
 
-    .form-group label {
+    .auth-card .form-group label {
+      display: block;
       color: #ccc;
       font-size: 14px;
       font-weight: 500;
-      display: block;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    .form-group input,
-    .form-group select {
+    .auth-card .form-group input,
+    .auth-card .form-group select {
       width: 100%;
       padding: 14px 18px;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, .08);
-      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
       color: white;
       font-size: 15px;
       outline: none;
-      transition: .2s;
+      transition: 0.2s;
     }
 
-    .form-group input:focus,
-    .form-group select:focus {
-      border-color: #c8102e;
-      background: rgba(255, 255, 255, .06);
+    .auth-card .form-group input:focus,
+    .auth-card .form-group select:focus {
+      border-color: #ff8c00;
+      background: rgba(255,255,255,0.06);
     }
 
-    .form-group select option {
+    .auth-card .form-group select option {
       background: #1a1a1a;
       color: white;
     }
 
-    .form-row {
+    .auth-card .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
     }
 
-    .payment-options {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      margin: 16px 0 10px;
+    .auth-card .form-group .password-wrapper {
+      position: relative;
     }
 
-    .payment-options button {
-      padding: 14px 10px;
-      border-radius: 16px;
-      border: 2px solid rgba(255, 255, 255, .06);
-      background: rgba(255, 255, 255, .04);
-      color: #ccc;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: .25s;
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    .auth-card .form-group .password-wrapper input {
+      padding-right: 50px;
     }
 
-    .payment-options button i {
-      font-size: 18px;
-    }
-
-    .payment-options button:hover {
-      border-color: rgba(200, 16, 46, .4);
-      background: rgba(200, 16, 46, .08);
-    }
-
-    .payment-options button.active {
-      border-color: #c8102e;
-      background: rgba(200, 16, 46, .15);
-      color: white;
-    }
-
-    .submit-reg {
-      width: 100%;
-      padding: 18px;
-      background: #c8102e;
-      color: white;
+    .auth-card .form-group .password-wrapper .toggle-password {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
       border: none;
-      border-radius: 18px;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: .3s;
-      margin-top: 10px;
-    }
-
-    .submit-reg:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(200, 16, 46, .4);
-    }
-
-    .reg-footer {
-      text-align: center;
-      margin-top: 18px;
       color: #888;
-      font-size: 13px;
+      cursor: pointer;
+      font-size: 18px;
     }
-    .reg-footer a {
-      color: #c8102e;
+
+    .auth-card .form-group .password-wrapper .toggle-password:hover {
+      color: white;
+    }
+
+    .auth-card .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 16px 0 22px;
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .auth-card .terms input {
+      accent-color: #ff8c00;
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .auth-card .terms a {
+      color: #ff8c00;
       text-decoration: none;
     }
-    .reg-footer a:hover {
+
+    .auth-card .terms a:hover {
       text-decoration: underline;
     }
 
-    @media (max-width: 700px) {
-      .card { padding: 30px; }
-      h1 { font-size: 30px; }
-      .buttons { flex-direction: column; }
-      .form-row { grid-template-columns: 1fr; }
-      .payment-options { grid-template-columns: 1fr 1fr; }
-      .register-card { padding: 30px 20px; }
+    .btn-register {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #c8102e, #ff7b00);
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
 
-    @media (max-width: 450px) {
-      .payment-options { grid-template-columns: 1fr; }
+    .btn-register:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(200,16,46,0.3);
+    }
+
+    .auth-card .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0;
+      color: #555;
+      font-size: 13px;
+    }
+
+    .auth-card .divider::before,
+    .auth-card .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .auth-card .login-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .auth-card .login-link a {
+      color: #ff8c00;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .auth-card .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #888;
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 16px;
+      transition: .2s;
+    }
+
+    .back-btn:hover {
+      color: white;
+    }
+
+    .back-btn i {
+      font-size: 16px;
+    }
+
+    @media (max-width: 500px) {
+      .auth-card { padding: 30px 20px; }
+      .auth-card h1 { font-size: 24px; }
+      .auth-card .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- MAIN CARD -->
-  <div class="card">
-    <img src="https://uccec.com/wp-content/uploads/2025/08/logo_uccec.png" class="logo" alt="UCCEC Logo">
-    <h1>Become a UCCEC Member</h1>
-    <p class="subtitle">Join Uganda's growing community of entrepreneurs, investors and business leaders.</p>
+  <div class="auth-card">
+    <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back Home</a>
 
-    <div class="info-box">
-      <h2>How to become a UCCEC Member</h2>
-      <p>
-        UCCEC has different membership categories with varying fees.
-        Interested eligible persons pay a one-time registration fee of
-        <strong>UGX 50,000</strong> (Approx. <strong>USD 14.08</strong>)
-        to become members of the organization.
-      </p>
-      <div class="fee">One-Time Registration Fee<br>UGX 50,000</div>
+    <div class="logo">
+      <img src="https://uccec.com/wp-content/uploads/2025/08/logo_uccec.png" alt="UCCEC Logo">
     </div>
 
-    <div class="agreement">
-      <input type="checkbox" id="agree">
-      <label for="agree">
-        I have read and understood the membership requirements and I agree to abide by the rules, regulations and code of conduct of the Uganda Chamber of Commerce & Entrepreneurs' League Confederation (UCCEC).
-      </label>
-    </div>
+    <h1>Create Account</h1>
+    <p class="sub">Join the UCCEC community today</p>
 
-    <div class="buttons">
-      <button class="register" id="registerBtn" disabled>Register Now</button>
-      <button class="login">Sign In</button>
-    </div>
-
-    <div class="footer">© 2026 Uganda Chamber of Commerce & Entrepreneurs' League Confederation</div>
-  </div>
-
-  <!-- ===== REGISTRATION OVERLAY (card with credentials + payment) ===== -->
-  <div class="register-overlay" id="registerOverlay">
-    <div class="register-card">
-      <button class="close-btn" id="closeReg"><i class="fas fa-times"></i></button>
-
-      <h2>Complete Registration</h2>
-      <p class="reg-sub">Fill in your details and choose a payment method</p>
-
-      <form id="regForm" onsubmit="return false;">
-        <div class="form-row">
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" placeholder="John" required>
-          </div>
-          <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" placeholder="Doe" required>
-          </div>
-        </div>
-
+    <form id="registerForm" onsubmit="handleRegister(event)">
+      <div class="form-row">
         <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="you@example.com" required>
+          <label>First Name</label>
+          <input type="text" placeholder="John" required>
         </div>
-
         <div class="form-group">
-          <label>Phone Number</label>
-          <input type="tel" placeholder="+256 700 000 000" required>
+          <label>Last Name</label>
+          <input type="text" placeholder="Doe" required>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label>Membership Category</label>
-          <select required>
-            <option value="">Select category</option>
-            <option value="individual">Individual – UGX 50,000</option>
-            <option value="corporate">Corporate – UGX 250,000</option>
-            <option value="student">Student – UGX 25,000</option>
-          </select>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@example.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+256 700 000 000" required>
+      </div>
+
+      <div class="form-group">
+        <label>Membership Category</label>
+        <select required>
+          <option value="">Select category</option>
+          <option value="individual">Individual – UGX 50,000</option>
+          <option value="corporate">Corporate – UGX 250,000</option>
+          <option value="student">Student – UGX 25,000</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <div class="password-wrapper">
+          <input type="password" id="regPasswordInput" placeholder="Create a password" required>
+          <button type="button" class="toggle-password" onclick="toggleRegPassword()">
+            <i class="fas fa-eye" id="regPasswordIcon"></i>
+          </button>
         </div>
+      </div>
 
-        <div class="form-group">
-          <label>Payment Method</label>
-          <div class="payment-options" id="paymentOptions">
-            <button type="button" data-method="mobile" class="active">
-              <i class="fas fa-mobile-alt"></i> Mobile Money
-            </button>
-            <button type="button" data-method="card">
-              <i class="fas fa-credit-card"></i> Card
-            </button>
-            <button type="button" data-method="bank">
-              <i class="fas fa-university"></i> Bank
-            </button>
-          </div>
-        </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Confirm your password" required>
+      </div>
 
-        <button type="submit" class="submit-reg" id="submitReg">
-          <i class="fas fa-check-circle" style="margin-right: 10px;"></i> Pay & Register
-        </button>
+      <div class="terms">
+        <input type="checkbox" id="termsCheck" required>
+        <label for="termsCheck">
+          I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand that I will be charged a one-time registration fee based on my selected membership category.
+        </label>
+      </div>
 
-        <div class="reg-footer">
-          By continuing, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-        </div>
-      </form>
+      <button type="submit" class="btn-register">
+        <i class="fas fa-user-plus"></i> Register Now
+      </button>
+    </form>
+
+    <div class="divider">or</div>
+
+    <div class="login-link">
+      Already have an account? <a href="login.html">Login here</a>
     </div>
   </div>
 
   <script>
-    // --- Agreement checkbox ---
-    const agree = document.getElementById('agree');
-    const registerBtn = document.getElementById('registerBtn');
-
-    agree.addEventListener('change', () => {
-      registerBtn.disabled = !agree.checked;
-    });
-
-    // --- Open registration overlay ---
-    registerBtn.onclick = () => {
-      document.getElementById('registerOverlay').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    };
-
-    // --- Close overlay ---
-    function closeOverlay() {
-      document.getElementById('registerOverlay').classList.remove('active');
-      document.body.style.overflow = '';
+    // ===== TOGGLE PASSWORD =====
+    function toggleRegPassword() {
+      const input = document.getElementById('regPasswordInput');
+      const icon = document.getElementById('regPasswordIcon');
+      
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
     }
 
-    document.getElementById('closeReg').onclick = closeOverlay;
-
-    // Close on backdrop click
-    document.getElementById('registerOverlay').onclick = (e) => {
-      if (e.target === e.currentTarget) closeOverlay();
-    };
-
-    // ESC key to close
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeOverlay();
-    });
-
-    // --- Payment method selection ---
-    const paymentBtns = document.querySelectorAll('#paymentOptions button');
-    paymentBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        paymentBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-
-    // --- Sign In button ---
-    document.querySelector('.login').onclick = () => {
-      window.location.href = 'login.html';
-    };
-
-    // --- Submit registration (demo) ---
-    document.getElementById('submitReg').onclick = function(e) {
+    // ===== HANDLE REGISTER =====
+    function handleRegister(e) {
       e.preventDefault();
-      // Gather selected payment method
-      const activePayment = document.querySelector('#paymentOptions .active');
-      const method = activePayment ? activePayment.textContent.trim() : 'Mobile Money';
+      
+      const category = document.querySelector('select').value;
+      const categoryLabel = category === 'individual' ? 'Individual – UGX 50,000' :
+                           category === 'corporate' ? 'Corporate – UGX 250,000' :
+                           category === 'student' ? 'Student – UGX 25,000' : 'Not selected';
+      
+      alert('✅ Registration successful!\n\nWelcome to UCCEC!\n\nMembership Category: ' + categoryLabel + '\n\nYou will receive a confirmation email shortly.');
+      
+      // Redirect to login or home
+      // window.location.href = 'login.html';
+    }
 
-      alert('✅ Registration submitted!\n\n' +
-            'Payment Method: ' + method + '\n' +
-            'You will receive a confirmation email shortly.\n\n' +
-            '(This is a demo — integrate with your backend.)');
-
-      // Optionally close
-      closeOverlay();
-      // Reset form (optional)
-      document.getElementById('regForm').reset();
-      // Reset payment selection to default
-      paymentBtns.forEach(b => b.classList.remove('active'));
-      document.querySelector('#paymentOptions button[data-method="mobile"]').classList.add('active');
-    };
+    console.log('✅ Register page loaded');
   </script>
-  <!-- Font Awesome (if not already in head) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 
-<!-- Booking System -->
-<script src="booking-system.js"></script>
 </body>
 </html>
