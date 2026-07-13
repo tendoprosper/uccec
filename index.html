@@ -1157,7 +1157,6 @@
       transform: translateY(0);
     }
 
-    /* Stagger children */
     .stagger > * {
       opacity: 0;
       transform: translateY(30px);
@@ -1172,6 +1171,150 @@
     .stagger.visible > * {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* ===== MISSIONS SECTION ===== */
+    .missions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .mission-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .mission-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255,165,0,0.3);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+
+    .mission-card .mission-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: .5s;
+    }
+
+    .mission-card:hover .mission-img {
+      transform: scale(1.04);
+    }
+
+    .mission-card .mission-body {
+      padding: 20px 22px 22px;
+    }
+
+    .mission-card .mission-body .mission-badge {
+      display: inline-block;
+      padding: 3px 14px;
+      border-radius: 30px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #c8102e, #ff7b00);
+      color: white;
+      animation: pulse-badge 2s infinite;
+    }
+
+    .mission-card .mission-body .mission-badge.popular {
+      background: rgba(46, 204, 113, 0.2);
+      color: #2ecc71;
+      animation: none;
+    }
+
+    .mission-card .mission-body .mission-badge.limited {
+      background: rgba(255, 165, 0, 0.2);
+      color: #ff8c00;
+      animation: none;
+    }
+
+    .mission-card .mission-body h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .mission-card .mission-body .mission-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      color: #aaa;
+      font-size: 13px;
+      margin: 6px 0 10px;
+    }
+
+    .mission-card .mission-body .mission-meta i {
+      color: #ff8c00;
+      margin-right: 4px;
+    }
+
+    .mission-card .mission-body .mission-price {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ff8c00;
+      margin: 6px 0 12px;
+    }
+
+    .mission-card .mission-body .mission-price small {
+      font-size: 13px;
+      font-weight: 400;
+      color: #aaa;
+    }
+
+    .mission-card .mission-body .mission-dest {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    .mission-card .mission-body .mission-dest span {
+      background: rgba(255,165,0,0.08);
+      border: 1px solid rgba(255,165,0,0.1);
+      padding: 2px 10px;
+      border-radius: 30px;
+      font-size: 10px;
+      color: #ccc;
+    }
+
+    .mission-card .mission-body .mission-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #c8102e, #ff7b00);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .3s;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .mission-card .mission-body .mission-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(200,16,46,0.3);
+    }
+
+    .missions-view-all {
+      text-align: center;
+      margin-top: 30px;
     }
 
     /* ——— RESPONSIVE ——— */
@@ -1220,6 +1363,7 @@
       .video-wrapper iframe { height: 320px; }
       .countdown-item { padding: 12px 18px; min-width: 60px; }
       .countdown-item .number { font-size: 2rem; }
+      .missions-grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 600px) {
@@ -1256,6 +1400,7 @@
       .countdown-item { padding: 10px 14px; min-width: 50px; }
       .countdown-item .number { font-size: 1.6rem; }
       .spotlight-grid { grid-template-columns: 1fr 1fr; }
+      .missions-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 400px) {
@@ -1332,6 +1477,7 @@
       <a href="#services">Services</a>
       <a href="#gallery">Gallery</a>
       <a href="#news">News</a>
+      <a href="#missions">Missions</a>
       <a href="#events">Events</a>
       <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
@@ -1348,6 +1494,7 @@
     <a href="#services">Services</a>
     <a href="#gallery">Gallery</a>
     <a href="#news">News</a>
+    <a href="#missions">Missions</a>
     <a href="#events">Events</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
@@ -1380,7 +1527,7 @@
         <button class="book-now" onclick="addBooking('Business & Cultural Tour to China', '$3,000', '14th – 24th September 2026')">
           <i class="fas fa-calendar-check"></i> Book Now
         </button>
-        <button class="view-details" onclick="window.location.href='news.html'">
+        <button class="view-details" onclick="window.location.href='book a trip.html'">
           <i class="fas fa-info-circle"></i> View Details
         </button>
       </div>
@@ -1400,6 +1547,90 @@
         <div class="card"><i class="fas fa-bullseye"></i><h3>Mission</h3><p>To unify, empower, and advocate for Ugandan businesses and entrepreneurs at all levels.</p></div>
         <div class="card"><i class="fas fa-eye"></i><h3>Vision</h3><p>A prosperous Uganda driven by a vibrant, ethical, and competitive private sector.</p></div>
         <div class="card"><i class="fas fa-handshake"></i><h3>Values</h3><p>Integrity, collaboration, innovation, and service to the entrepreneurial community.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MISSIONS SECTION ===== -->
+  <section id="missions" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1600&q=80');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.78);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">🌍 UCCEC <span>Missions</span></h2>
+      <p style="text-align:center; color:var(--text-muted); margin-bottom:30px; font-size:1.05rem;">Explore exclusive business and cultural tours designed for entrepreneurs and professionals.</p>
+
+      <div class="missions-grid stagger">
+
+        <!-- Mission 1: China -->
+        <a href="book a trip.html" class="mission-card">
+          <img src="https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=600&q=80" alt="China Mission" class="mission-img">
+          <div class="mission-body">
+            <span class="mission-badge">🔥 Hot</span>
+            <h3>Business & Cultural Tour to China</h3>
+            <div class="mission-meta">
+              <span><i class="fas fa-calendar-alt"></i> 14th – 24th Sept 2026</span>
+              <span><i class="fas fa-clock"></i> 11 Days</span>
+            </div>
+            <div class="mission-dest">
+              <span>Shandong</span>
+              <span>Jinan</span>
+              <span>Qingdao</span>
+            </div>
+            <div class="mission-price">$3,000 <small>USD</small></div>
+            <button class="mission-btn" onclick="event.stopPropagation(); window.location.href='book a trip.html'">
+              <i class="fas fa-rocket"></i> Explore Mission
+            </button>
+          </div>
+        </a>
+
+        <!-- Mission 2: Dubai -->
+        <a href="book a trip.html" class="mission-card">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80" alt="Dubai Mission" class="mission-img">
+          <div class="mission-body">
+            <span class="mission-badge popular">⭐ Popular</span>
+            <h3>Business & Trade Mission to Dubai</h3>
+            <div class="mission-meta">
+              <span><i class="fas fa-calendar-alt"></i> 10th – 20th June 2025</span>
+              <span><i class="fas fa-clock"></i> 11 Days</span>
+            </div>
+            <div class="mission-dest">
+              <span>Dubai</span>
+              <span>Abu Dhabi</span>
+            </div>
+            <div class="mission-price">$3,500 <small>USD</small></div>
+            <button class="mission-btn" onclick="event.stopPropagation(); window.location.href='book a trip.html'">
+              <i class="fas fa-rocket"></i> Explore Mission
+            </button>
+          </div>
+        </a>
+
+        <!-- Mission 3: Europe -->
+        <a href="book a trip.html" class="mission-card">
+          <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&q=80" alt="Europe Mission" class="mission-img">
+          <div class="mission-body">
+            <span class="mission-badge limited">🌟 Limited</span>
+            <h3>European Business & Innovation Tour</h3>
+            <div class="mission-meta">
+              <span><i class="fas fa-calendar-alt"></i> 5th – 18th July 2025</span>
+              <span><i class="fas fa-clock"></i> 14 Days</span>
+            </div>
+            <div class="mission-dest">
+              <span>London</span>
+              <span>Berlin</span>
+              <span>Paris</span>
+            </div>
+            <div class="mission-price">$5,200 <small>USD</small></div>
+            <button class="mission-btn" onclick="event.stopPropagation(); window.location.href='book a trip.html'">
+              <i class="fas fa-rocket"></i> Explore Mission
+            </button>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="missions-view-all anim-fade">
+        <a href="book a trip.html" class="btn btn-outline" style="font-size:1.05rem; padding: 16px 48px;">
+          <i class="fas fa-globe" style="margin-right: 10px;"></i> View All Missions
+        </a>
       </div>
     </div>
   </section>
@@ -1808,6 +2039,7 @@
         <a href="#about">About Us</a>
         <a href="#services">Services</a>
         <a href="#events">Events</a>
+        <a href="#missions">Missions</a>
         <a href="member.html">Join Us</a>
       </div>
       <div>
@@ -1935,7 +2167,6 @@
 
     // ===== FAST SCROLL ANIMATIONS =====
     document.addEventListener('DOMContentLoaded', function() {
-      // Use Intersection Observer for fast fade-in
       const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -30px 0px'
@@ -1949,17 +2180,13 @@
         });
       }, observerOptions);
 
-      // Observe all animation elements
       document.querySelectorAll('.anim-fade, .anim-scale, .anim-slide-up, .stagger').forEach(el => {
         observer.observe(el);
       });
 
-      // Also observe individual cards inside grids that don't have parent stagger
-      document.querySelectorAll('.grid:not(.stagger) .card, .spotlight-grid .spotlight-item, .gallery-item, .story-card, .faq-item').forEach(el => {
-        // Check if it already has an animation class
+      document.querySelectorAll('.grid:not(.stagger) .card, .spotlight-grid .spotlight-item, .gallery-item, .story-card, .faq-item, .mission-card').forEach(el => {
         if (!el.classList.contains('anim-fade') && !el.classList.contains('anim-scale') && !el.classList.contains('anim-slide-up')) {
-          // Add a small delay based on index for staggered effect
-          const parent = el.closest('.grid, .spotlight-grid, .gallery-grid');
+          const parent = el.closest('.grid, .spotlight-grid, .gallery-grid, .missions-grid');
           if (parent) {
             const index = Array.from(parent.children).indexOf(el);
             el.style.transitionDelay = (index * 0.05) + 's';
@@ -2225,7 +2452,7 @@
     updateBookingBadge();
     startCountdown();
 
-    console.log('✅ UCCEC website loaded with fast animations.');
+    console.log('✅ UCCEC website loaded with Missions section.');
   </script>
 </body>
 </html>
