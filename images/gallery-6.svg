@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+  <defs>
+    <linearGradient id="bg6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7fb069;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d5016;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="300" height="300" fill="url(#bg6)"/>
+  
+  <!-- Trophy/Award -->
+  <g transform="translate(150, 150)">
+    <!-- Trophy base -->
+    <rect x="-40" y="50" width="80" height="15" rx="3" fill="#FFD700" opacity="0.9"/>
+    <ellipse cx="0" cy="50" rx="45" ry="5" fill="#FFA500" opacity="0.8"/>
+    
+    <!-- Trophy stand -->
+    <polygon points="0,50 -8,35 8,35" fill="#c8e6c9"/>
+    
+    <!-- Trophy cup -->
+    <path d="M -30 35 Q -35 15 -20 0 L 20 0 Q 35 15 30 35 Z" fill="#c8e6c9" stroke="#7fb069" stroke-width="2"/>
+    <ellipse cx="0" cy="0" rx="22" ry="8" fill="none" stroke="#7fb069" stroke-width="2"/>
+    
+    <!-- Trophy handles -->
+    <path d="M -30 20 Q -50 15 -45 35" fill="none" stroke="#c8e6c9" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 30 20 Q 50 15 45 35" fill="none" stroke="#c8e6c9" stroke-width="5" stroke-linecap="round"/>
+    
+    <!-- Stars around trophy -->
+    <g fill="#FFD700" opacity="0.9">
+      <!-- Top star -->
+      <polygon points="0,-50 3,-40 13,-40 6,-33 9,-23 0,-29 -9,-23 -6,-33 -13,-40 -3,-40"/>
+      
+      <!-- Left stars -->
+      <polygon points="-50,-20 -47,-12 -38,-12 -45,-6 -42,3 -50,-3 -58,3 -55,-6 -62,-12 -51,-12"/>
+      
+      <!-- Right stars -->
+      <polygon points="50,-20 53,-12 62,-12 55,-6 58,3 50,-3 42,3 45,-6 38,-12 49,-12"/>
+      
+      <!-- Bottom left star -->
+      <polygon points="-40,45 -37,52 -27,52 -34,57 -31,66 -40,61 -49,66 -46,57 -53,52 -43,52"/>
+      
+      <!-- Bottom right star -->
+      <polygon points="40,45 43,52 53,52 46,57 49,66 40,61 31,66 34,57 27,52 37,52"/>
+    </g>
+    
+    <!-- Excellence ribbon -->
+    <rect x="-35" y="5" width="70" height="8" fill="#FF1493" opacity="0.7" rx="2"/>
+    <text x="0" y="30" text-anchor="middle" fill="#FFD700" font-size="12" font-weight="bold">EXCELLENCE</text>
+  </g>
+</svg>

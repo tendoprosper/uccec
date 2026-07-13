@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d5016;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3d6b24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a3a0a;stop-opacity:1" />
+    </linearGradient>
+    <style>
+      @keyframes float1 { 0%, 100% { transform: translateY(0px) translateX(0px); } 50% { transform: translateY(-30px) translateX(15px); } }
+      @keyframes float2 { 0%, 100% { transform: translateY(0px) translateX(0px); } 50% { transform: translateY(-25px) translateX(-20px); } }
+      @keyframes sway { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(2deg); } }
+      .leaf1 { animation: float1 6s ease-in-out infinite; }
+      .leaf2 { animation: float2 8s ease-in-out infinite; }
+      .leaf3 { animation: float1 7s ease-in-out infinite; animation-delay: 1s; }
+      .sway-item { animation: sway 4s ease-in-out infinite; transform-origin: top center; }
+    </style>
+  </defs>
+  
+  <rect width="1200" height="800" fill="url(#bgGrad)"/>
+  
+  <!-- Floating leaves background -->
+  <g opacity="0.15">
+    <ellipse cx="150" cy="150" rx="40" ry="60" fill="#7fb069" class="leaf1" transform="rotate(-45)"/>
+    <ellipse cx="1050" cy="250" rx="50" ry="75" fill="#c8e6c9" class="leaf2" transform="rotate(30)"/>
+    <ellipse cx="300" cy="600" rx="35" ry="55" fill="#a8d5a8" class="leaf3" transform="rotate(60)"/>
+    <ellipse cx="900" cy="100" rx="45" ry="70" fill="#7fb069" class="leaf1" transform="rotate(-60)" style="animation-delay: 2s;"/>
+    <ellipse cx="500" cy="750" rx="38" ry="62" fill="#c8e6c9" class="leaf2" transform="rotate(-20)" style="animation-delay: 1.5s;"/>
+  </g>
+  
+  <!-- Decorative circles/bubbles -->
+  <g opacity="0.08">
+    <circle cx="100" cy="100" r="80" fill="#7fb069"/>
+    <circle cx="1100" cy="700" r="120" fill="#c8e6c9"/>
+    <circle cx="600" cy="200" r="100" fill="#a8d5a8"/>
+    <circle cx="200" cy="600" r="90" fill="#7fb069"/>
+  </g>
+</svg>
