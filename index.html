@@ -1,589 +1,2231 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>UCCEC · Uganda Chamber of Commerce & Entrepreneurs' League Confederation</title>
 
-<meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
+  <style>
+    /* ——— Red, Black & White ——— */
+    :root {
+      --primary: #1A1A1A;
+      --primary-light: #2A2A2A;
+      --accent: #C8102E;
+      --accent-hover: #E01A3A;
+      --bg-deep: #0C0C0C;
+      --card-bg: rgba(0, 0, 0, 0.55);
+      --border-subtle: rgba(200, 16, 46, 0.3);
+      --text-light: #F0F0F0;
+      --text-muted: #C0C0C0;
+      --white: #FFFFFF;
+    }
 
-<title>
-Uganda Chamber of Commerce & Entrepreneurs' League Confederation | UCCEC
-</title>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-light);
+      overflow-x: hidden;
+      background: var(--bg-deep);
+      -webkit-font-smoothing: antialiased;
+    }
 
-<meta name="description"
-content="Promoting Coffee Production, Entrepreneurship, Investment, Trade and Sustainable Development in Uganda.">
+    /* ——— NAVBAR ——— */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 12px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(12, 12, 12, 0.92);
+      backdrop-filter: blur(20px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-subtle);
+      transition: 0.2s;
+    }
 
-<meta name="keywords"
-content="Coffee, Uganda, UCCEC, Farmers, Investment, Entrepreneurship, Trade">
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
 
-<meta name="author"
-content="UCCEC">
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--white);
+      letter-spacing: -0.2px;
+    }
 
-<link rel="icon"
-href="logo.png">
+    .nav-logo {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+      border-radius: 10px;
+      background: rgba(200, 16, 46, 0.10);
+      padding: 4px;
+      transition: 0.3s;
+      border: 1px solid rgba(200, 16, 46, 0.2);
+    }
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
+    .header-image {
+      height: 44px;
+      max-width: 130px;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(200, 16, 46, 0.15);
+      display: block;
+      transition: 0.3s;
+      filter: brightness(1.1);
+    }
 
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+    nav.desktop-nav {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
-rel="stylesheet">
+    nav.desktop-nav a {
+      padding: 8px 20px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      border-radius: 40px;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+      letter-spacing: 0.2px;
+    }
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    nav.desktop-nav a:hover {
+      color: var(--white);
+      background: rgba(200, 16, 46, 0.12);
+    }
+    nav.desktop-nav a.active {
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: 0 6px 18px rgba(200, 16, 46, 0.35);
+      font-weight: 600;
+    }
 
-<link rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    .hamburger {
+      font-size: 26px;
+      cursor: pointer;
+      display: none;
+      color: var(--text-light);
+      margin-left: 12px;
+      padding: 0 6px;
+    }
 
-<link rel="stylesheet"
-href="css/style.css">
+    /* ——— MOBILE MENU ——— */
+    .mobile-menu {
+      position: fixed;
+      top: 0; right: -100%;
+      width: 76%;
+      max-width: 340px;
+      height: 100vh;
+      background: #141414;
+      padding: 100px 30px 40px;
+      transition: 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      z-index: 1100;
+      border-left: 1px solid var(--border-subtle);
+      overflow-y: auto;
+    }
+    .mobile-menu.active { right: 0; }
+    .close-btn {
+      position: absolute;
+      top: 24px; right: 28px;
+      font-size: 32px;
+      cursor: pointer;
+      color: var(--accent);
+      transition: 0.2s;
+      opacity: 0.7;
+    }
+    .close-btn:hover { opacity: 1; transform: rotate(90deg); }
+    .mobile-menu a {
+      display: block;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.05rem;
+      transition: 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--accent); padding-left: 8px; }
 
-<link rel="stylesheet"
-href="css/animations.css">
+    /* ——— HERO ——— */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(145deg, rgba(10, 10, 10, 0.80), rgba(0, 0, 0, 0.90)),
+                  url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80') center/cover no-repeat;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      padding: 150px 6% 80px;
+      position: relative;
+      overflow: hidden;
+    }
 
-<link rel="stylesheet"
-href="css/responsive.css">
+    .hero-content {
+      flex: 1;
+      max-width: 720px;
+      z-index: 2;
+      position: relative;
+    }
 
+    .hero h1 {
+      font-size: clamp(38px, 7.2vw, 72px);
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+    }
+    .hero h1 span { color: var(--accent); }
+
+    .hero-img {
+      position: absolute;
+      right: 6%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    #hero-logo {
+      width: 340px;
+      max-width: 78vw;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+      border-radius: 24px;
+      background: rgba(10, 10, 10, 0.4);
+      padding: 14px;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(200, 16, 46, 0.2);
+    }
+
+    /* ——— SECTIONS ——— */
+    section { 
+      padding: 100px 6%; 
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .section-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 10, 10, 0.80);
+      z-index: 0;
+    }
+
+    .section-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .title {
+      font-size: clamp(30px, 4.6vw, 44px);
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--white);
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.7);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 28px;
+      padding: 30px 26px;
+      transition: all 0.35s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 40px rgba(200, 16, 46, 0.15);
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .card i { color: var(--accent); font-size: 2.2rem; margin-bottom: 6px; }
+    .card h3 { font-size: 1.3rem; font-weight: 600; margin: 14px 0 8px; color: var(--white); }
+    .card p { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+
+    .btn {
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+      display: inline-block;
+      font-size: 1rem;
+      letter-spacing: 0.3px;
+      text-decoration: none;
+      text-align: center;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(200, 16, 46, 0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid var(--accent);
+    }
+    .btn-outline:hover {
+      background: var(--accent);
+      color: var(--white);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(200, 16, 46, 0.2);
+    }
+
+    /* ===== FLOATING ICONS ===== */
+    .visit-news-btn {
+      position: fixed;
+      left: 28px;
+      bottom: 130px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      padding: 14px 20px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      z-index: 999;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .visit-news-btn:hover {
+      background: var(--accent);
+      transform: scale(1.05);
+      border-color: var(--accent);
+      box-shadow: 0 12px 35px rgba(200, 16, 46, 0.3);
+    }
+    .visit-news-btn i {
+      color: var(--accent);
+      font-size: 1.3rem;
+      transition: 0.3s;
+    }
+    .visit-news-btn:hover i {
+      color: var(--white);
+    }
+
+    .floating-join {
+      position: fixed;
+      right: 28px;
+      bottom: 130px;
+      background: var(--accent);
+      color: var(--white);
+      padding: 14px 26px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 15px 40px rgba(200, 16, 46, 0.35);
+      z-index: 999;
+      animation: pulse-join 2.4s infinite;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+    .floating-join:hover { 
+      background: var(--accent-hover); 
+      transform: scale(1.03); 
+    }
+    @keyframes pulse-join { 
+      0%, 100% { transform: scale(1); } 
+      50% { transform: scale(1.05); } 
+    }
+
+    .floating-bookings-btn {
+      position: fixed;
+      right: 28px;
+      bottom: 200px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--white);
+      padding: 12px 18px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      z-index: 999;
+      transition: all 0.3s ease;
+      font-size: 0.85rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .floating-bookings-btn:hover {
+      background: rgba(200, 16, 46, 0.2);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+    .floating-bookings-btn i {
+      color: #ff8c00;
+      font-size: 1.2rem;
+    }
+    .floating-bookings-btn .badge {
+      background: var(--accent);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      min-width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 6px;
+    }
+
+    /* ——— GALLERY ——— */
+    .gallery-item {
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: 0.3s;
+      position: relative;
+      backdrop-filter: blur(4px);
+    }
+    .gallery-item:hover {
+      border-color: var(--accent);
+      transform: scale(1.01);
+      box-shadow: 0 12px 30px rgba(200, 16, 46, 0.10);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-caption {
+      padding: 16px 18px 18px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      border-top: 1px solid rgba(200, 16, 46, 0.15);
+    }
+    .gallery-caption h4 {
+      color: var(--white);
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+    .gallery-caption p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* ——— SOCIAL MEDIA ——— */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-muted);
+      font-size: 1.6rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+    }
+    .social-links a:hover {
+      background: var(--accent);
+      color: var(--white);
+      border-color: var(--accent);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(200, 16, 46, 0.25);
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-social a {
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .footer-social a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: rgba(200, 16, 46, 0.08);
+      transform: translateY(-3px);
+    }
+
+    /* ——— NEWS SECTION ——— */
+    .news-footer {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    /* ——— PARTNERS ——— */
+    .partners-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      align-items: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .partners-grid img {
+      height: 60px;
+      width: auto;
+      filter: grayscale(1) brightness(2);
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+    .partners-grid img:hover {
+      opacity: 1;
+      filter: grayscale(0) brightness(1);
+    }
+
+    /* ——— STATS ——— */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .stats-grid h2 {
+      font-size: 3rem;
+      color: var(--accent);
+      font-weight: 900;
+    }
+    .stats-grid p {
+      color: #aaa;
+    }
+
+    /* ——— NEWSLETTER ——— */
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 550px;
+      margin: 0 auto;
+    }
+    .newsletter-form input {
+      flex: 1;
+      min-width: 200px;
+      padding: 16px 24px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+    .newsletter-form input:focus {
+      border-color: var(--accent);
+    }
+
+    /* ——— ENHANCED FOOTER ——— */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      text-align: left;
+    }
+    .footer-grid h4 {
+      color: white;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .footer-grid a {
+      display: block;
+      color: #888;
+      text-decoration: none;
+      padding: 4px 0;
+      font-size: 14px;
+      transition: 0.2s;
+    }
+    .footer-grid a:hover {
+      color: var(--accent);
+    }
+    .footer-grid p {
+      color: #888;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    /* ===== MODAL OVERLAYS ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(16px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 30px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #1a1a1a;
+      border-radius: 32px;
+      padding: 40px 35px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+      position: relative;
+      animation: modalIn 0.35s ease;
+    }
+    .modal-card.wide {
+      max-width: 800px;
+    }
+    @keyframes modalIn {
+      from { opacity:0; transform: scale(0.92) translateY(20px); }
+      to { opacity:1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(200,16,46,0.15);
+      border: 1px solid rgba(200,16,46,0.2);
+      color: #ccc;
+      font-size: 22px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover {
+      background: var(--accent);
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .modal-card h2 {
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .modal-card .sub {
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+    .modal-card .event-detail {
+      display: flex;
+      gap: 14px;
+      color: #ccc;
+      padding: 8px 0;
+      font-size: 15px;
+      align-items: center;
+    }
+    .modal-card .event-detail i {
+      color: var(--accent);
+      width: 22px;
+    }
+    .modal-card .event-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin: 12px 0;
+    }
+    .modal-card .price-tag {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 12px 0;
+    }
+    .modal-card .form-group {
+      margin-bottom: 16px;
+    }
+    .modal-card .form-group label {
+      display: block;
+      color: #ccc;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .modal-card .form-group input,
+    .modal-card .form-group select,
+    .modal-card .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: white;
+      font-size: 15px;
+      outline: none;
+      transition: 0.2s;
+    }
+    .modal-card .form-group input:focus,
+    .modal-card .form-group select:focus,
+    .modal-card .form-group textarea:focus {
+      border-color: var(--accent);
+      background: rgba(255,255,255,0.06);
+    }
+    .modal-card .form-group select option {
+      background: #1a1a1a;
+      color: white;
+    }
+    .modal-card .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .modal-card .btn-submit {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 18px;
+      background: var(--accent);
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 8px;
+    }
+    .modal-card .btn-submit:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(200,16,46,0.3);
+    }
+    .modal-card .btn-secondary {
+      width: 100%;
+      padding: 16px;
+      border: 2px solid var(--accent);
+      border-radius: 18px;
+      background: transparent;
+      color: white;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 8px;
+    }
+    .modal-card .btn-secondary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+    .modal-card .payment-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 12px 0;
+    }
+    .modal-card .payment-options button {
+      padding: 12px;
+      border-radius: 14px;
+      border: 2px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.04);
+      color: #ccc;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+    .modal-card .payment-options button:hover,
+    .modal-card .payment-options button.active {
+      border-color: var(--accent);
+      background: rgba(200,16,46,0.12);
+      color: white;
+    }
+
+    .modal-card .bookings-list {
+      margin-top: 16px;
+    }
+    .modal-card .booking-item {
+      background: rgba(255,255,255,0.04);
+      padding: 14px 18px;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 3px solid var(--accent);
+    }
+    .modal-card .booking-item .info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .modal-card .booking-item .info strong {
+      color: white;
+    }
+    .modal-card .booking-item .info span {
+      color: #aaa;
+      font-size: 13px;
+    }
+    .modal-card .booking-item .status {
+      background: rgba(46, 204, 113, 0.15);
+      color: #2ecc71;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ===== CHINA TRIP ADVERT ===== */
+    .china-advert {
+      position: relative;
+      background: linear-gradient(135deg, rgba(200,16,46,0.2), rgba(0,0,0,0.9));
+      border: 2px solid rgba(255, 165, 0, 0.25);
+      border-radius: 28px;
+      padding: 40px 45px;
+      margin: 20px 0 40px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+      box-shadow: 0 0 60px rgba(200,16,46,0.08);
+    }
+    .china-advert .advert-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+    .china-advert .advert-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .china-advert .advert-bg .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.3) 70%, transparent);
+    }
+    .china-advert .advert-content {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      min-width: 250px;
+    }
+    .china-advert .advert-content .hot-badge {
+      background: linear-gradient(135deg, #c8102e, #ff7b00);
+      padding: 4px 16px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: inline-block;
+      color: white;
+      animation: pulse-badge 2s infinite;
+    }
+    @keyframes pulse-badge {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .china-advert .advert-content h2 {
+      font-size: 32px;
+      font-weight: 900;
+      margin: 10px 0 6px;
+    }
+    .china-advert .advert-content h2 span {
+      color: #ff8c00;
+    }
+    .china-advert .advert-content p {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 500px;
+    }
+    .china-advert .advert-content .price {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ff8c00;
+      margin: 8px 0 12px;
+    }
+    .china-advert .advert-content .price small {
+      font-size: 16px;
+      font-weight: 400;
+      color: #aaa;
+    }
+    .china-advert .advert-content .btn-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .china-advert .advert-content .btn-group button {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .china-advert .advert-content .btn-group .book-now {
+      background: linear-gradient(135deg, #c8102e, #ff7b00);
+      color: white;
+      box-shadow: 0 8px 25px rgba(200,16,46,0.25);
+    }
+    .china-advert .advert-content .btn-group .book-now:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 14px 35px rgba(200,16,46,0.35);
+    }
+    .china-advert .advert-content .btn-group .view-details {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .china-advert .advert-content .btn-group .view-details:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-3px);
+    }
+    .china-advert .advert-image {
+      position: relative;
+      z-index: 2;
+      width: 180px;
+      height: 180px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 3px solid rgba(255,165,0,0.2);
+      flex-shrink: 0;
+    }
+    .china-advert .advert-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .china-advert .advert-image .flag {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.7);
+      padding: 4px 12px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #ff8c00;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ===== SUCCESS STORIES ===== */
+    .story-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 28px;
+      padding: 30px 26px;
+      transition: all 0.35s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+    .story-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 18px 40px rgba(200, 16, 46, 0.15);
+      background: rgba(0, 0, 0, 0.7);
+    }
+    .story-card .story-icon {
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .story-card h4 {
+      color: var(--white);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .story-card .story-company {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .story-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+    .story-card .story-quote {
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-top: 12px;
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      border-left: 3px solid var(--accent);
+    }
+
+    /* ===== VIDEO SECTION ===== */
+    .video-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .video-wrapper iframe {
+      width: 100%;
+      height: 450px;
+      display: block;
+    }
+
+    /* ===== MEMBER SPOTLIGHT ===== */
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+    .spotlight-item {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 24px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: all 0.35s ease;
+    }
+    .spotlight-item:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+    }
+    .spotlight-item .spotlight-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #ff7b00);
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+    }
+    .spotlight-item h4 {
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    .spotlight-item p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .spotlight-item .spotlight-badge {
+      display: inline-block;
+      background: rgba(200,16,46,0.15);
+      color: var(--accent);
+      padding: 2px 14px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* ===== COUNTDOWN TIMER ===== */
+    .countdown-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .countdown-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 16px 24px;
+      text-align: center;
+      min-width: 80px;
+    }
+    .countdown-item .number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .countdown-item .label {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+
+    /* ===== FAST ANIMATION CLASSES ===== */
+    .anim-fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .anim-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .anim-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .anim-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .anim-slide-up {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .anim-slide-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger children */
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+    .stagger.visible > *:nth-child(2) { transition-delay: 0.10s; }
+    .stagger.visible > *:nth-child(3) { transition-delay: 0.15s; }
+    .stagger.visible > *:nth-child(4) { transition-delay: 0.20s; }
+    .stagger.visible > *:nth-child(5) { transition-delay: 0.25s; }
+    .stagger.visible > *:nth-child(6) { transition-delay: 0.30s; }
+    .stagger.visible > * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ——— RESPONSIVE ——— */
+    @media (max-width: 992px) {
+      .hamburger { display: block; }
+      nav.desktop-nav { display: none; }
+      
+      .floating-join { bottom: 100px; right: 16px; padding: 12px 20px; font-size: 0.85rem; }
+      .floating-bookings-btn { right: 16px; bottom: 170px; padding: 10px 14px; font-size: 0.8rem; }
+      .floating-bookings-btn i { font-size: 1rem; }
+      .visit-news-btn { left: 16px; bottom: 100px; padding: 10px 16px; font-size: 0.8rem; }
+      .visit-news-btn i { font-size: 1rem; }
+      
+      .china-advert { padding: 30px 25px; flex-direction: column; text-align: center; }
+      .china-advert .advert-content p { max-width: 100%; }
+      .china-advert .advert-image { width: 140px; height: 140px; }
+      
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 130px;
+        padding-bottom: 60px;
+        background-attachment: scroll;
+      }
+      .hero-content { max-width: 100%; }
+      .hero-img {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin-top: 40px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      #hero-logo { width: 260px; max-width: 70vw; padding: 10px; }
+      .header-image { height: 38px; max-width: 100px; }
+      .logo-link { font-size: 20px; }
+      .nav-logo { width: 40px; height: 40px; }
+      section { background-attachment: scroll; }
+      .social-links a { width: 48px; height: 48px; font-size: 1.4rem; }
+      .footer-grid { text-align: center; }
+      .modal-card { padding: 30px 20px; }
+      .modal-card .form-row { grid-template-columns: 1fr; }
+      .modal-card .payment-options { grid-template-columns: 1fr 1fr; }
+      .video-wrapper iframe { height: 320px; }
+      .countdown-item { padding: 12px 18px; min-width: 60px; }
+      .countdown-item .number { font-size: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 10px 4%; }
+      .header-image { height: 32px; max-width: 80px; }
+      .logo-link { font-size: 18px; gap: 6px; }
+      .nav-logo { width: 34px; height: 34px; }
+      .hamburger { font-size: 22px; }
+      .hero h1 { font-size: 32px; }
+      #hero-logo { width: 200px; }
+      
+      .floating-join { padding: 10px 16px; font-size: 0.8rem; gap: 8px; bottom: 80px; right: 12px; }
+      .floating-bookings-btn { padding: 8px 12px; font-size: 0.7rem; bottom: 140px; right: 12px; }
+      .floating-bookings-btn i { font-size: 0.9rem; }
+      .floating-bookings-btn .badge { font-size: 9px; min-width: 18px; height: 18px; }
+      .visit-news-btn { padding: 8px 12px; font-size: 0.7rem; left: 12px; bottom: 80px; }
+      .visit-news-btn i { font-size: 0.9rem; }
+      
+      .mobile-menu { width: 85%; }
+      .gallery-item img { height: 180px; }
+      section { padding: 70px 5%; }
+      .social-links { gap: 16px; }
+      .social-links a { width: 44px; height: 44px; font-size: 1.2rem; }
+      .stats-grid h2 { font-size: 2.2rem; }
+      .partners-grid img { height: 40px; }
+      .modal-card .payment-options { grid-template-columns: 1fr; }
+      .modal-card .booking-item { flex-direction: column; gap: 10px; align-items: flex-start; }
+      .china-advert { padding: 20px 16px; }
+      .china-advert .advert-content h2 { font-size: 24px; }
+      .china-advert .advert-content .price { font-size: 22px; }
+      .china-advert .advert-image { width: 100px; height: 100px; }
+      .video-wrapper iframe { height: 220px; }
+      .countdown-wrapper { gap: 12px; }
+      .countdown-item { padding: 10px 14px; min-width: 50px; }
+      .countdown-item .number { font-size: 1.6rem; }
+      .spotlight-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 400px) {
+      .header-image { display: none; }
+      .logo-container { gap: 6px; }
+      .china-advert .advert-content .btn-group { flex-direction: column; }
+      .china-advert .advert-content .btn-group button { width: 100%; justify-content: center; }
+      .floating-join { bottom: 70px; right: 10px; padding: 8px 14px; font-size: 0.7rem; }
+      .floating-bookings-btn { bottom: 125px; right: 10px; padding: 6px 10px; font-size: 0.65rem; }
+      .floating-bookings-btn i { font-size: 0.8rem; }
+      .visit-news-btn { bottom: 70px; left: 10px; padding: 8px 10px; font-size: 0.65rem; }
+      .visit-news-btn i { font-size: 0.8rem; }
+      .spotlight-grid { grid-template-columns: 1fr; }
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 14px 0;
+    }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.05rem;
+    }
+    .faq-question span { color: var(--white); font-weight: 300; }
+    .faq-answer {
+      display: none;
+      margin-top: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    input, textarea { font-family: 'Inter', sans-serif; }
+    input::placeholder, textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
+  </style>
 </head>
-
 <body>
 
-<!-- Loader -->
-<div id="loader"></div>
+  <!-- ===== FLOATING ICONS ===== -->
 
+  <!-- 1. Join UCCEC - RIGHT BOTTOM -->
+  <a href="member.html" class="floating-join">
+    <i class="fas fa-user-plus"></i> <span>Join UCCEC</span>
+  </a>
 
-
-
-
-
-
-<!-- Scroll Progress -->
-<div id="scroll-progress"></div>
-
-<!-- Logo Header -->
-<header class="logo-header" style="animation: slideDown 0.6s ease;">
-  <div class="logo-header-content">
-    <img src="logo.png" alt="UCCEC Logo" class="header-logo">
-    <div class="logo-text">
-      <h2 class="logo-title">Uganda Chamber of Commerce</h2>
-      <p class="logo-subtitle">Entrepreneurs' League Confederation (UCCEC)</p>
-    </div>
-  </div>
-  <button class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">
-    <i class="fas fa-moon"></i>
+  <!-- 2. My Bookings - RIGHT (slightly above Join) -->
+  <button class="floating-bookings-btn" onclick="openBookings()">
+    <i class="fas fa-calendar-check"></i>
+    <span>Bookings</span>
+    <span class="badge" id="bookingBadge">0</span>
   </button>
-</header>
 
-<!-- Navigation -->
-<nav class="navbar">
-  <ul class="nav-links">
-    <li><a href="#hero">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#events">Events</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="menu-toggle">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</nav>
+  <!-- 3. Visit News - LEFT BOTTOM -->
+  <a href="news.html" class="visit-news-btn">
+    <i class="fas fa-newspaper"></i>
+    <span>News</span>
+  </a>
 
-<!-- Announcement Bar -->
-<div class="announcement-bar" style="animation: slideDown 0.6s ease 0.2s both;">
-  <p><i class="fas fa-leaf" style="margin-right: 8px;"></i> Promoting Sustainable Agriculture, Entrepreneurship & Sustainable Development in Uganda</p>
-</div>
+  <!-- HEADER -->
+  <header>
+    <div class="logo-container">
+      <a href="#" class="logo-link">
+        <img src="https://uccec.com/wp-content/uploads/2025/08/logo_uccec.png" class="nav-logo" alt="UCCEC crest">
+        <span>UCCEC</span>
+      </a>
+      <img src="https://uccec.com/wp-content/uploads/2025/08/cropped-logo_uccec.png" class="header-image" alt="UCCEC emblem">
+    </div>
+    <nav class="desktop-nav" id="desktop-nav">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#focus">Focus</a>
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#news">News</a>
+      <a href="#events">Events</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+  </header>
 
-<!-- Hero Section -->
-<section id="hero" style="background-image: url('images/hero-bg.svg'); position: relative; overflow: hidden; min-height: 500px; display: flex; align-items: center; justify-content: center;">
-  <div class="hero-content">
-    <h1 class="animate-slide-in">Uganda's Green Future</h1>
-    <p class="animate-fade" style="animation-delay: 0.2s;">Cultivating Sustainable Growth, Driving Innovation, Building a Greener Tomorrow</p>
-    <div class="hero-buttons">
-      <a href="#about" class="btn btn-primary animate-fade" style="animation-delay: 0.4s;">Learn More</a>
-      <a href="#contact" class="btn btn-secondary animate-fade" style="animation-delay: 0.6s;">Get in Touch</a>
-    </div>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="close-btn" id="close-menu">✕</div>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#focus">Focus</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#news">News</a>
+    <a href="#events">Events</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
   </div>
-</section>
 
-<!-- About -->
-<section id="about" style="position: relative; overflow: hidden;">
-  <!-- Animated background decoration -->
-  <div style="position: absolute; left: -200px; top: 50%; transform: translateY(-50%); width: 400px; height: 400px; opacity: 0.08; pointer-events: none;">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" style="width: 100%; height: 100%; animation: floating 10s ease-in-out infinite;">
-      <circle cx="200" cy="200" r="150" fill="#7fb069"/>
-      <circle cx="200" cy="200" r="120" fill="none" stroke="#7fb069" stroke-width="3"/>
-    </svg>
-  </div>
-  
-  <div class="about-container" style="position: relative; z-index: 1;">
-    <div class="about-content animate-slide-in">
-      <h3>About UCCEC ✨</h3>
-      <p>The Uganda Chamber of Commerce & Entrepreneurs' League Confederation (UCCEC) is dedicated to promoting sustainable plant-based agriculture, entrepreneurship, investment, trade, and environmental development across Uganda.</p>
-      <p>With a mission to uplift farmers, support entrepreneurs, and create lasting economic growth through green practices, UCCEC brings together stakeholders in Uganda's thriving sustainable agriculture sector.</p>
-      <p>We believe in the power of sustainable farming, fair trade practices, and eco-friendly methods to transform lives and build a greener future for our communities.</p>
-      <a href="#contact" class="btn btn-primary" style="margin-top: 20px; animation: floating 3s ease-in-out infinite;">Join Our Community</a>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1 class="reveal">Uganda Chamber of Commerce <br><span>&amp; Entrepreneurs' League</span> Confederation</h1>
+      <p class="reveal" style="margin: 22px 0 36px; font-size: 1.1rem; opacity: 0.85; max-width: 600px; line-height: 1.7;">Dedicated to protecting businesses, promoting ethical entrepreneurship, and driving Uganda's socio‑economic transformation.</p>
+      <button class="btn btn-primary reveal" onclick="document.getElementById('focus').scrollIntoView({behavior:'smooth'})">Explore Our Focus Areas</button>
     </div>
-    <div class="about-image" style="animation: floating 3.5s ease-in-out infinite;">
-      <img src="logo.png" alt="Green plant" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">
+    <div class="hero-img">
+      <img id="hero-logo" src="https://uccec.com/wp-content/uploads/2025/08/logo_uccec.png" alt="UCCEC main logo">
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Services -->
-<section id="services">
-  <h2 class="section-title">Our Services</h2>
-  <div class="services-grid">
-    <div class="service-card hover-lift animate-slide-in">
-      <div class="service-icon" style="animation: floating 3s ease-in-out infinite;"><i class="fas fa-handshake"></i></div>
-      <h3>Business Partnerships</h3>
-      <p>Connect with fellow entrepreneurs and establish meaningful business relationships through our network.</p>
+  <!-- ===== CHINA TRIP ADVERT ===== -->
+  <div class="china-advert anim-fade">
+    <div class="advert-bg">
+      <img src="https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=1200&q=80" alt="China Trip">
+      <div class="overlay"></div>
     </div>
-    <div class="service-card hover-lift animate-slide-in" style="animation-delay: 0.1s;">
-      <div class="service-icon" style="animation: floating 3s ease-in-out infinite; animation-delay: 0.5s;"><i class="fas fa-graduation-cap"></i></div>
-      <h3>Training & Development</h3>
-      <p>Access workshops and programs designed to enhance your skills in sustainable production and entrepreneurship.</p>
+    <div class="advert-content">
+      <span class="hot-badge">🔥 HOT PROGRAM</span>
+      <h2>Business & Cultural <span>Tour to China</span></h2>
+      <p>Join UCCEC on an exclusive 11-day business and cultural tour to Shandong Province, visiting Jinan, Yantai, Linyi, and Qingdao.</p>
+      <div class="price">$3,000 USD <small>| 14th – 24th Sept 2026</small></div>
+      <div class="btn-group">
+        <button class="book-now" onclick="addBooking('Business & Cultural Tour to China', '$3,000', '14th – 24th September 2026')">
+          <i class="fas fa-calendar-check"></i> Book Now
+        </button>
+        <button class="view-details" onclick="window.location.href='news.html'">
+          <i class="fas fa-info-circle"></i> View Details
+        </button>
+      </div>
     </div>
-    <div class="service-card hover-lift animate-slide-in" style="animation-delay: 0.2s;">
-      <div class="service-icon" style="animation: floating 3s ease-in-out infinite; animation-delay: 1s;"><i class="fas fa-chart-line"></i></div>
-      <h3>Market Access</h3>
-      <p>Gain access to premium markets and expand your business reach with our trading connections.</p>
-    </div>
-    <div class="service-card hover-lift animate-slide-in" style="animation-delay: 0.3s;">
-      <div class="service-icon" style="animation: floating 3s ease-in-out infinite; animation-delay: 1.5s;"><i class="fas fa-heart" style="color: #ff6b9d;"></i></div>
-      <h3>Sustainable Practices</h3>
-      <p>Learn and implement environmentally friendly farming methods that protect our planet.</p>
-    </div>
-    <div class="service-card hover-lift animate-slide-in" style="animation-delay: 0.4s;">
-      <div class="service-icon" style="animation: floating 3s ease-in-out infinite; animation-delay: 2s;"><i class="fas fa-lightbulb" style="color: #FFD700;"></i></div>
-      <h3>Innovation Support</h3>
-      <p>Get guidance on adopting new technologies and innovative approaches to sustainable farming.</p>
-    </div>
-    <div class="service-card hover-lift animate-slide-in" style="animation-delay: 0.5s;">
-      <div class="service-icon" style="animation: floating 3s ease-in-out infinite; animation-delay: 2.5s;"><i class="fas fa-globe"></i></div>
-      <h3>Export Assistance</h3>
-      <p>Receive support in navigating international markets and exporting quality products.</p>
+    <div class="advert-image">
+      <img src="https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=400&q=80" alt="China">
+      <span class="flag">🇨🇳 China 2026</span>
     </div>
   </div>
-</section>
 
-<!-- Statistics -->
-<section id="statistics" style="position: relative; overflow: hidden;">
-  <!-- Animated background shapes -->
-  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; pointer-events: none;">
-    <div style="position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, #ffffff, transparent); border-radius: 50%; top: -100px; left: -100px; animation: floating 8s ease-in-out infinite;"></div>
-    <div style="position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, #ffffff, transparent); border-radius: 50%; bottom: -150px; right: -150px; animation: floating 10s ease-in-out infinite; animation-delay: 2s;"></div>
-  </div>
-  
-  <div class="stats-grid" style="position: relative; z-index: 1;">
-    <div class="stat-item" style="animation: scaleUp 0.8s ease; animation-delay: 0s;">
-      <h2 style="animation: heartbeat 1.2s ease-in-out infinite;">5000+</h2>
-      <p>Active Members</p>
+  <!-- ABOUT -->
+  <section id="about" style="background-image: url('sile 3.png');">
+    <div class="section-overlay"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">About UCCEC</h2>
+      <div class="grid stagger">
+        <div class="card"><i class="fas fa-bullseye"></i><h3>Mission</h3><p>To unify, empower, and advocate for Ugandan businesses and entrepreneurs at all levels.</p></div>
+        <div class="card"><i class="fas fa-eye"></i><h3>Vision</h3><p>A prosperous Uganda driven by a vibrant, ethical, and competitive private sector.</p></div>
+        <div class="card"><i class="fas fa-handshake"></i><h3>Values</h3><p>Integrity, collaboration, innovation, and service to the entrepreneurial community.</p></div>
+      </div>
     </div>
-    <div class="stat-item" style="animation: scaleUp 0.8s ease; animation-delay: 0.1s;">
-      <h2 style="animation: heartbeat 1.2s ease-in-out infinite; animation-delay: 0.2s;">150</h2>
-      <p>Partner Companies</p>
-    </div>
-    <div class="stat-item" style="animation: scaleUp 0.8s ease; animation-delay: 0.2s;">
-      <h2 style="animation: heartbeat 1.2s ease-in-out infinite; animation-delay: 0.4s;">50+</h2>
-      <p>Annual Events</p>
-    </div>
-    <div class="stat-item" style="animation: scaleUp 0.8s ease; animation-delay: 0.3s;">
-      <h2 style="animation: heartbeat 1.2s ease-in-out infinite; animation-delay: 0.6s;">$50M</h2>
-      <p>Trade Volume</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-  
-  <div style="position: relative; z-index: 1;">
-    <h2 class="section-title" style="color: #c8e6c9; margin-bottom: 25px;">
-      <i class="fas fa-clock" style="margin-right: 10px; animation: rotate-infinite 4s linear infinite;"></i> Next Event Countdown
-    </h2>
-    <div id="countdown-content"></div>
-  </div>
-</section>
+  <!-- ===== VIDEO INTRODUCTION ===== -->
+  <section style="padding: 60px 6%; background: rgba(255,255,255,0.01);">
+    <div class="section-content">
+      <h2 class="title anim-fade">🎥 Welcome to UCCEC</h2>
+      <p style="text-align:center; color:var(--text-muted); margin-bottom:30px; font-size:1.1rem;">Watch our introduction video to learn more about who we are and what we do.</p>
+      <div class="video-wrapper anim-scale">
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="UCCEC Introduction" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
 
-<!-- Events -->
-<section id="events">
-  <h2 class="section-title">
-    <i class="fas fa-calendar-alt" style="margin-right: 10px; animation: rotate-infinite 4s linear infinite;"></i> Upcoming Events
-  </h2>
-  <div class="events-grid">
-    <div class="event-card animate-slide-in" style="animation-delay: 0s;">
-      <div class="event-date" style="animation: swing 2s ease-in-out infinite;">July 25, 2026</div>
-      <div class="event-content">
-        <h3>🌱 Coffee Farmers Summit</h3>
-        <p>Join industry leaders and fellow farmers for discussions on sustainable farming practices.</p>
-        <span class="event-tag">Conference</span>
+  <!-- FOCUS -->
+  <section id="focus" style="background-image: url('nn.webp');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.78);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">Our Focus Areas</h2>
+      <div class="grid stagger">
+        <div class="card"><i class="fas fa-scale-balanced"></i><h3>Policy Advocacy</h3><p>Influencing trade policies and regulatory frameworks that favor business growth.</p></div>
+        <div class="card"><i class="fas fa-graduation-cap"></i><h3>Entrepreneurship Training</h3><p>Capacity building, mentorship, and skills development for emerging entrepreneurs.</p></div>
+        <div class="card"><i class="fas fa-globe"></i><h3>International Trade</h3><p>Connecting Ugandan businesses to global markets and investment opportunities.</p></div>
+        <div class="card"><i class="fas fa-people-group"></i><h3>Community Engagement</h3><p>Fostering a network of ethical business leaders committed to social impact.</p></div>
       </div>
     </div>
-    <div class="event-card animate-slide-in" style="animation-delay: 0.1s;">
-      <div class="event-date" style="animation: swing 2s ease-in-out infinite; animation-delay: 0.5s;">August 10, 2026</div>
-      <div class="event-content">
-        <h3>🤝 Business Networking Evening</h3>
-        <p>Connect with entrepreneurs, investors, and business partners in a vibrant setting.</p>
-        <span class="event-tag">Networking</span>
-      </div>
-    </div>
-    <div class="event-card animate-slide-in" style="animation-delay: 0.2s;">
-      <div class="event-date" style="animation: swing 2s ease-in-out infinite; animation-delay: 1s;">August 22, 2026</div>
-      <div class="event-content">
-        <h3>📚 Export Masterclass</h3>
-        <p>Learn the essentials of exporting products internationally and accessing global markets.</p>
-        <span class="event-tag">Training</span>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- News -->
-<section id="news">
-  <h2 class="section-title">
-    <i class="fas fa-newspaper" style="margin-right: 10px; animation: rotate-infinite 4s linear infinite;"></i> Latest News
-  </h2>
-  <div class="events-grid">
-    <div class="event-card animate-slide-in" style="animation-delay: 0s;">
-      <div class="event-date" style="animation: swing 2s ease-in-out infinite;">June 15</div>
-      <div class="event-content">
-        <h3>📈 Uganda Coffee Exports Hit Record High</h3>
-        <p>Coffee exports from Uganda reached an all-time high this quarter, boosting the economy significantly.</p>
-        <span class="event-tag">Market News</span>
+  <!-- SERVICES -->
+  <section id="services" style="background-image: url('1.png');">
+    <div class="section-overlay"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">Our Services</h2>
+      <div class="grid stagger">
+        <div class="card"><i class="fas fa-chart-line"></i><h3>Business Advisory</h3><p>Strategic planning, market analysis, and operational support.</p></div>
+        <div class="card"><i class="fas fa-gavel"></i><h3>Legal &amp; Compliance</h3><p>Guidance on regulatory compliance, contracts, and business registration.</p></div>
+        <div class="card"><i class="fas fa-hand-holding-usd"></i><h3>Access to Finance</h3><p>Linking entrepreneurs to funding, grants, and investment networks.</p></div>
+        <div class="card"><i class="fas fa-laptop-code"></i><h3>Digital Transformation</h3><p>Helping businesses leverage technology for efficiency and growth.</p></div>
       </div>
     </div>
-    <div class="event-card animate-slide-in" style="animation-delay: 0.1s;">
-      <div class="event-date" style="animation: swing 2s ease-in-out infinite; animation-delay: 0.5s;">June 08</div>
-      <div class="event-content">
-        <h3>🌿 New Sustainability Initiative Launched</h3>
-        <p>UCCEC launches groundbreaking program to promote eco-friendly coffee farming practices.</p>
-        <span class="event-tag">Sustainability</span>
-      </div>
-    </div>
-    <div class="event-card animate-slide-in" style="animation-delay: 0.2s;">
-      <div class="event-date" style="animation: swing 2s ease-in-out infinite; animation-delay: 1s;">June 01</div>
-      <div class="event-content">
-        <h3>⭐ Member Spotlight: Success Stories</h3>
-        <p>Feature on how our members have transformed their businesses through UCCEC support.</p>
-        <span class="event-tag">Member News</span>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Projects -->
-<section id="projects">
-  <h2 class="section-title">
-    <i class="fas fa-rocket" style="margin-right: 10px; animation: floating 3s ease-in-out infinite;"></i> Our Projects
-  </h2>
-  <div class="events-grid">
-    <div class="event-card hover-lift animate-slide-in" style="animation-delay: 0s;">
-      <div class="event-date" style="background-color: #7fb069; animation: swing 2s ease-in-out infinite;">Project</div>
-      <div class="event-content">
-        <h3>🏆 Uganda Coffee Quality Standard</h3>
-        <p>Developing and implementing international quality standards for Ugandan coffee to enhance global competitiveness.</p>
+  <!-- STATS -->
+  <section id="stats" style="background: rgba(255,255,255,0.02); padding:80px 6%;">
+    <div class="section-content">
+      <h2 class="title anim-fade">Our Impact in Numbers</h2>
+      <div class="stats-grid stagger">
+        <div><h2>500+</h2><p>Members</p></div>
+        <div><h2>50+</h2><p>Events Annually</p></div>
+        <div><h2>20+</h2><p>Countries Reached</p></div>
+        <div><h2>10+</h2><p>Years of Impact</p></div>
       </div>
     </div>
-    <div class="event-card hover-lift animate-slide-in" style="animation-delay: 0.1s;">
-      <div class="event-date" style="background-color: #7fb069; animation: swing 2s ease-in-out infinite; animation-delay: 0.5s;">Project</div>
-      <div class="event-content">
-        <h3>👨‍🌾 Youth in Coffee Initiative</h3>
-        <p>Engaging youth in coffee farming through training, mentorship, and business development opportunities.</p>
-      </div>
-    </div>
-    <div class="event-card hover-lift animate-slide-in" style="animation-delay: 0.2s;">
-      <div class="event-date" style="background-color: #7fb069; animation: swing 2s ease-in-out infinite; animation-delay: 1s;">Project</div>
-      <div class="event-content">
-        <h3>🌍 Green Coffee Economy</h3>
-        <p>Promoting sustainable and environmentally responsible practices throughout the coffee supply chain.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- Gallery -->
-<section id="gallery">
-  <h2 class="section-title">Gallery</h2>
-  <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-    <div class="gallery-item hover-scale" style="background: linear-gradient(135deg, #2d5016, #4a7c2c); height: 250px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 60px; cursor: pointer; overflow: hidden;">
-      <img src="images/gallery-1.svg" alt="Sustainable farming" style="width: 100%; height: 100%; object-fit: cover;">
-    </div>
-    <div class="gallery-item hover-scale" style="background: linear-gradient(135deg, #4a7c2c, #7fb069); height: 250px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 60px; cursor: pointer; overflow: hidden;">
-      <img src="images/gallery-2.svg" alt="Plant growth" style="width: 100%; height: 100%; object-fit: cover;">
-    </div>
-    <div class="gallery-item hover-scale" style="background: linear-gradient(135deg, #7fb069, #2d5016); height: 250px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 60px; cursor: pointer; overflow: hidden;">
-      <img src="images/gallery-3.svg" alt="Green community" style="width: 100%; height: 100%; object-fit: cover;">
-    </div>
-    <div class="gallery-item hover-scale" style="background: linear-gradient(135deg, #2d5016, #4a7c2c); height: 250px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 60px; cursor: pointer; overflow: hidden;">
-      <img src="images/gallery-4.svg" alt="Global market" style="width: 100%; height: 100%; object-fit: cover;">
-    </div>
-    <div class="gallery-item hover-scale" style="background: linear-gradient(135deg, #4a7c2c, #7fb069); height: 250px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 60px; cursor: pointer; overflow: hidden;">
-      <img src="images/gallery-5.svg" alt="Organic agriculture" style="width: 100%; height: 100%; object-fit: cover;">
-    </div>
-    <div class="gallery-item hover-scale" style="background: linear-gradient(135deg, #7fb069, #2d5016); height: 250px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 60px; cursor: pointer; overflow: hidden;">
-      <img src="images/gallery-6.svg" alt="Excellence award" style="width: 100%; height: 100%; object-fit: cover;">
-    </div>
-  </div>
-</section>
-
-<!-- Coffee Tours -->
-<section id="tours">
-  <h2 class="section-title">
-    <i class="fas fa-map-marker-alt" style="margin-right: 10px; animation: bounce 1.5s ease-in-out infinite;"></i> Coffee Farm Tours
-  </h2>
-  <div class="events-grid">
-    <div class="event-card animate-slide-in" style="animation-delay: 0s;">
-      <div class="event-date" style="background-color: #2d5016; animation: swing 2s ease-in-out infinite;">3 Days</div>
-      <div class="event-content">
-        <h3>⛰️ Mountain Farm Experience</h3>
-        <p>Visit sustainable coffee farms in the Rwenzori Mountains. Experience traditional farming methods and taste freshly roasted coffee.</p>
-        <span class="event-tag">Tour</span>
-      </div>
-    </div>
-    <div class="event-card animate-slide-in" style="animation-delay: 0.1s;">
-      <div class="event-date" style="background-color: #2d5016; animation: swing 2s ease-in-out infinite; animation-delay: 0.5s;">2 Days</div>
-      <div class="event-content">
-        <h3>🏭 Processing Mill Tour</h3>
-        <p>Learn how coffee is processed from bean to export-ready product. Meet skilled workers and understand quality control measures.</p>
-        <span class="event-tag">Tour</span>
-      </div>
-    </div>
-    <div class="event-card animate-slide-in" style="animation-delay: 0.2s;">
-      <div class="event-date" style="background-color: #2d5016; animation: swing 2s ease-in-out infinite; animation-delay: 1s;">Full Day</div>
-      <div class="event-content">
-        <h3>👥 Farmer Community Visit</h3>
-        <p>Connect directly with coffee farmers, understand their challenges, and learn about community development initiatives.</p>
-        <span class="event-tag">Tour</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Support -->
-<section id="support" style="position: relative;">
-  <div style="position: absolute; right: -100px; top: 50%; transform: translateY(-50%); width: 400px; height: 400px; opacity: 0.1; pointer-events: none;">
-    <img src="images/motion-graphic.svg" alt="" style="width: 100%; height: 100%;"/>
-  </div>
-  
-  <div style="position: relative; z-index: 1;">
-    <h2 class="section-title">How We Support You</h2>
-    <div class="services-grid">
-      <div class="service-card hover-lift animate-slide-in">
-        <div class="service-icon" style="animation: floating 3s ease-in-out infinite;"><i class="fas fa-phone"></i></div>
-        <h3>24/7 Support</h3>
-        <p>Our dedicated team is available to assist with your inquiries and provide guidance whenever you need it.</p>
-      </div>
-      <div class="service-card hover-lift animate-slide-in" style="animation-delay: 0.1s;">
-        <div class="service-icon" style="animation: floating 3s ease-in-out infinite; animation-delay: 0.5s;"><i class="fas fa-book"></i></div>
-        <h3>Resources & Guides</h3>
-        <p>Access comprehensive guides, best practices, and educational materials on sustainable farming and business.</p>
-      </div>
-      <div class="service-card hover-lift animate-slide-in" style="animation-delay: 0.2s;">
-        <div class="service-icon" style="animation: floating 3s ease-in-out infinite; animation-delay: 1s;"><i class="fas fa-users"></i></div>
-        <h3>Mentorship Program</h3>
-        <p>Get paired with experienced mentors who can guide your business growth and personal development.</p>
-      </div>
-      <div class="service-card hover-lift animate-slide-in" style="animation-delay: 0.3s;">
-        <div class="service-icon" style="animation: floating 3s ease-in-out infinite; animation-delay: 1.5s;"><i class="fas fa-dollar-sign"></i></div>
-        <h3>Financial Services</h3>
-        <p>Access financing options and investment opportunities through our partner financial institutions.</p>
-      </div>
-      <div class="service-card hover-lift animate-slide-in" style="animation-delay: 0.4s;">
-        <div class="service-icon" style="animation: floating 3s ease-in-out infinite; animation-delay: 2s;"><i class="fas fa-briefcase"></i></div>
-        <h3>Business Consulting</h3>
-        <p>Get expert advice on business strategy, operations management, and market expansion.</p>
-      </div>
-      <div class="service-card hover-lift animate-slide-in" style="animation-delay: 0.5s;">
-        <div class="service-icon" style="animation: floating 3s ease-in-out infinite; animation-delay: 2.5s;"><i class="fas fa-award"></i></div>
-        <h3>Recognition Programs</h3>
-        <p>Celebrate achievements and gain recognition through our awards and excellence programs.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Partners -->
-<section id="partners">
-  <h2 class="section-title">Our Partners</h2>
-  <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-    <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(210, 105, 30, 0.1)); padding: 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
-      <p style="font-weight: 600; color: var(--primary-color);">Leading Financial Institution</p>
-    </div>
-    <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(210, 105, 30, 0.1)); padding: 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
-      <p style="font-weight: 600; color: var(--primary-color);">International Trade Body</p>
-    </div>
-    <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(210, 105, 30, 0.1)); padding: 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
-      <p style="font-weight: 600; color: var(--primary-color);">Premium Coffee Exporter</p>
-    </div>
-    <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(210, 105, 30, 0.1)); padding: 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
-      <p style="font-weight: 600; color: var(--primary-color);">Agricultural Technology Firm</p>
-    </div>
-    <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(210, 105, 30, 0.1)); padding: 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
-      <p style="font-weight: 600; color: var(--primary-color);">Government Agency</p>
-    </div>
-    <div style="background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(210, 105, 30, 0.1)); padding: 30px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
-      <p style="font-weight: 600; color: var(--primary-color);">NGO & Development Partner</p>
-    </div>
-  </div>
-</section>
-
-<!-- Testimonials -->
-<section id="testimonials">
-  <h2 class="section-title">What Our Members Say</h2>
-  <div class="events-grid">
-    <div class="event-card animate-slide-in" style="animation-delay: 0s;">
-      <div style="padding: 25px;">
-        <div style="margin-bottom: 15px;">
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite;"></i>
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite; animation-delay: 0.2s;"></i>
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite; animation-delay: 0.4s;"></i>
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite; animation-delay: 0.6s;"></i>
-          <i class="fas fa-star" style="color: #FFD700; animation: spin 2s linear infinite; animation-delay: 0.8s;"></i>
+  <!-- ===== EVENTS WITH COUNTDOWN ===== -->
+  <section id="events" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.82);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">Upcoming Events</h2>
+      
+      <!-- Countdown Timer -->
+      <div class="countdown-wrapper anim-scale" id="countdownContainer">
+        <div class="countdown-item">
+          <div class="number" id="days">00</div>
+          <div class="label">Days</div>
         </div>
-        <p style="margin-bottom: 15px; font-style: italic;">"UCCEC transformed my small farm into a thriving business. Their guidance and network support made all the difference!"</p>
-        <p style="font-weight: 600; color: var(--primary-color);">— John Mukasa, Coffee Farmer</p>
-      </div>
-    </div>
-    <div class="event-card animate-slide-in" style="animation-delay: 0.1s;">
-      <div style="padding: 25px;">
-        <div style="margin-bottom: 15px;">
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite;"></i>
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite; animation-delay: 0.2s;"></i>
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite; animation-delay: 0.4s;"></i>
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite; animation-delay: 0.6s;"></i>
-          <i class="fas fa-star" style="color: #FFD700; animation: spin 2s linear infinite; animation-delay: 0.8s;"></i>
+        <div class="countdown-item">
+          <div class="number" id="hours">00</div>
+          <div class="label">Hours</div>
         </div>
-        <p style="margin-bottom: 15px; font-style: italic;">"The training programs and export assistance opened doors I didn't know existed. Highly recommended!"</p>
-        <p style="font-weight: 600; color: var(--primary-color);">— Sarah Nakimuli, Coffee Exporter</p>
-      </div>
-    </div>
-    <div class="event-card animate-slide-in" style="animation-delay: 0.2s;">
-      <div style="padding: 25px;">
-        <div style="margin-bottom: 15px;">
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite;"></i>
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite; animation-delay: 0.2s;"></i>
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite; animation-delay: 0.4s;"></i>
-          <i class="fas fa-star" style="color: #FFD700; margin-right: 2px; animation: spin 2s linear infinite; animation-delay: 0.6s;"></i>
-          <i class="fas fa-star" style="color: #FFD700; animation: spin 2s linear infinite; animation-delay: 0.8s;"></i>
+        <div class="countdown-item">
+          <div class="number" id="minutes">00</div>
+          <div class="label">Minutes</div>
         </div>
-        <p style="margin-bottom: 15px; font-style: italic;">"Being part of UCCEC gave me access to quality standards and international markets that accelerated our growth."</p>
-        <p style="font-weight: 600; color: var(--primary-color);">— Peter Okai, Business Entrepreneur</p>
+        <div class="countdown-item">
+          <div class="number" id="seconds">00</div>
+          <div class="label">Seconds</div>
+        </div>
+      </div>
+      <p style="text-align:center; color:var(--text-muted); margin: 10px 0 30px; font-size:0.9rem;">⏳ Countdown to Annual Business Summit 2025</p>
+
+      <div class="grid stagger">
+        <div class="card" style="border-left:4px solid var(--accent);">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+            <h3>Annual Business Summit</h3>
+            <span style="background:var(--accent); padding:4px 14px; border-radius:20px; font-size:12px;">Featured</span>
+          </div>
+          <p><i class="fas fa-calendar" style="color:var(--accent);"></i> March 15-17, 2025</p>
+          <p><i class="fas fa-map-marker-alt" style="color:var(--accent);"></i> Kampala Serena Hotel</p>
+          <button class="btn btn-primary" style="margin-top:15px; padding:10px 24px; font-size:14px;" onclick="openRegisterModal('Annual Business Summit', 'March 15-17, 2025', 'Kampala Serena Hotel', '$250')">Register Now</button>
+        </div>
+
+        <div class="card">
+          <h3>Entrepreneurship Bootcamp</h3>
+          <p><i class="fas fa-calendar" style="color:var(--accent);"></i> April 5-7, 2025</p>
+          <p><i class="fas fa-map-marker-alt" style="color:var(--accent);"></i> UCCEC Training Center</p>
+          <button class="btn btn-outline" style="margin-top:15px; padding:10px 24px; font-size:14px;" onclick="openLearnMoreModal('Entrepreneurship Bootcamp', 'April 5-7, 2025', 'UCCEC Training Center', '$150', 'https://picsum.photos/seed/bootcamp/800/400', 'Intensive 3-day bootcamp covering business planning, marketing, finance, and leadership. Includes mentorship sessions, group projects, and networking opportunities with industry experts.')">Learn More</button>
+        </div>
+
+        <div class="card">
+          <h3>Trade Mission to Dubai</h3>
+          <p><i class="fas fa-calendar" style="color:var(--accent);"></i> June 10-20, 2025</p>
+          <p><i class="fas fa-map-marker-alt" style="color:var(--accent);"></i> Dubai, UAE</p>
+          <button class="btn btn-outline" style="margin-top:15px; padding:10px 24px; font-size:14px;" onclick="openApplyModal('Trade Mission to Dubai', 'June 10-20, 2025', 'Dubai, UAE', '$3000')">Apply Now</button>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Newsletter -->
-<section id="newsletter" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; text-align: center;">
-  <div style="max-width: 600px; margin: 0 auto;">
-    <h2 class="section-title" style="color: white;">Stay Updated</h2>
-    <p style="margin-bottom: 30px; font-size: 16px;">Subscribe to our newsletter for the latest news, events, and opportunities in the coffee industry.</p>
-    <form style="display: flex; gap: 10px; margin-bottom: 20px;">
-      <input type="email" placeholder="Enter your email" required style="flex: 1; padding: 12px 20px; border: none; border-radius: 8px; font-size: 14px;">
-      <button type="submit" class="btn btn-primary" style="border: none;">Subscribe</button>
-    </form>
-    <p style="font-size: 12px; opacity: 0.9;">We respect your privacy. Unsubscribe at any time.</p>
-  </div>
-</section>
+  <!-- BENEFITS -->
+  <section id="benefits" style="background-image: url('https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1600&q=80');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.82);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">Why Join UCCEC?</h2>
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+        <div class="card anim-scale" style="text-align:center; padding:30px 20px;">
+          <i class="fas fa-handshake" style="font-size:3rem; color:var(--accent);"></i>
+          <h3>Networking</h3>
+          <p style="font-size:14px;">Connect with 500+ business leaders</p>
+        </div>
+        <div class="card anim-scale" style="text-align:center; padding:30px 20px;">
+          <i class="fas fa-gavel" style="font-size:3rem; color:var(--accent);"></i>
+          <h3>Advocacy</h3>
+          <p style="font-size:14px;">Your voice in policy decisions</p>
+        </div>
+        <div class="card anim-scale" style="text-align:center; padding:30px 20px;">
+          <i class="fas fa-graduation-cap" style="font-size:3rem; color:var(--accent);"></i>
+          <h3>Training</h3>
+          <p style="font-size:14px;">Workshops &amp; capacity building</p>
+        </div>
+        <div class="card anim-scale" style="text-align:center; padding:30px 20px;">
+          <i class="fas fa-globe" style="font-size:3rem; color:var(--accent);"></i>
+          <h3>Global Access</h3>
+          <p style="font-size:14px;">International trade missions</p>
+        </div>
+        <div class="card anim-scale" style="text-align:center; padding:30px 20px;">
+          <i class="fas fa-bullhorn" style="font-size:3rem; color:var(--accent);"></i>
+          <h3>Marketing</h3>
+          <p style="font-size:14px;">Promote your business</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- Contact -->
-<section id="contact">
-  <h2 class="section-title">Get In Touch</h2>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; max-width: 1200px; margin: 0 auto;">
-    <div>
-      <h3 style="color: var(--primary-color); margin-bottom: 20px;">Contact Information</h3>
-      <div style="margin-bottom: 25px;">
-        <p style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-map-marker-alt" style="color: var(--secondary-color); margin-right: 10px;"></i>Address</p>
-        <p style="color: var(--text-light);">Kampala, Uganda</p>
+  <!-- ===== MEMBER SPOTLIGHT ===== -->
+  <section style="background: rgba(255,255,255,0.01); padding:80px 6%;">
+    <div class="section-content">
+      <h2 class="title anim-fade">⭐ Member Spotlight</h2>
+      <p style="text-align:center; color:var(--text-muted); margin-bottom:30px;">Meet some of our outstanding members who are making an impact.</p>
+      <div class="spotlight-grid stagger">
+        <div class="spotlight-item">
+          <div class="spotlight-avatar">JM</div>
+          <h4>John Mukasa</h4>
+          <p>GreenTech Uganda</p>
+          <span class="spotlight-badge">⭐ Top Member</span>
+        </div>
+        <div class="spotlight-item">
+          <div class="spotlight-avatar">SN</div>
+          <h4>Sarah Namirembe</h4>
+          <p>Namirembe Farms</p>
+          <span class="spotlight-badge">🌟 Rising Star</span>
+        </div>
+        <div class="spotlight-item">
+          <div class="spotlight-avatar">RK</div>
+          <h4>Robert Kiyimba</h4>
+          <p>Kiyimba Enterprises</p>
+          <span class="spotlight-badge">🏆 Excellence Award</span>
+        </div>
+        <div class="spotlight-item">
+          <div class="spotlight-avatar">AN</div>
+          <h4>Alice Nambooze</h4>
+          <p>Nambooze Group</p>
+          <span class="spotlight-badge">💼 Top Investor</span>
+        </div>
       </div>
-      <div style="margin-bottom: 25px;">
-        <p style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-phone" style="color: var(--secondary-color); margin-right: 10px;"></i>Phone</p>
-        <p style="color: var(--text-light);">+256 XXX XXX XXX</p>
+    </div>
+  </section>
+
+  <!-- ===== SUCCESS STORIES ===== -->
+  <section id="testimonials" style="background-image: url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=1600&q=80');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.85);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">🌟 Success Stories</h2>
+      <div class="grid stagger">
+        <div class="story-card">
+          <div class="story-icon"><i class="fas fa-rocket"></i></div>
+          <h4>From Startup to Industry Leader</h4>
+          <div class="story-company">GreenTech Uganda</div>
+          <div class="story-quote">"UCCEC connected me with investors that transformed my startup from a small idea to a company employing over 50 people."</div>
+          <p style="margin-top:8px;"><strong style="color:var(--accent);">— Sarah Namirembe</strong>, CEO</p>
+        </div>
+        <div class="story-card">
+          <div class="story-icon"><i class="fas fa-chart-line"></i></div>
+          <h4>Expanding Beyond Borders</h4>
+          <div class="story-company">Kiyimba Enterprises</div>
+          <div class="story-quote">"Through UCCEC's trade missions, we secured our first international contract. Our exports have grown by 200% in just two years."</div>
+          <p style="margin-top:8px;"><strong style="color:var(--accent);">— Robert Kiyimba</strong>, Founder</p>
+        </div>
+        <div class="story-card">
+          <div class="story-icon"><i class="fas fa-users"></i></div>
+          <h4>Building a Legacy</h4>
+          <div class="story-company">Akello Group</div>
+          <div class="story-quote">"The internship programs through UCCEC have helped us train and hire exceptional talent. We've built a team that's driving real change."</div>
+          <p style="margin-top:8px;"><strong style="color:var(--accent);">— Dr. Rose Akello</strong>, Director</p>
+        </div>
       </div>
-      <div style="margin-bottom: 25px;">
-        <p style="font-weight: 600; margin-bottom: 5px;"><i class="fas fa-envelope" style="color: var(--secondary-color); margin-right: 10px;"></i>Email</p>
-        <p style="color: var(--text-light);">info@uccec.org</p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" style="background-image: url('images.jpg');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.82);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">Gallery</h2>
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+        <div class="gallery-item anim-scale">
+          <img src="silde4.jpeg" alt="Annual business summit">
+          <div class="gallery-caption">
+            <h4>Annual Business Summit</h4>
+            <p>UCCEC's flagship event bringing together industry leaders and policymakers.</p>
+          </div>
+        </div>
+        <div class="gallery-item anim-scale">
+          <img src="slide.png" alt="Entrepreneurship workshop">
+          <div class="gallery-caption">
+            <h4>Entrepreneurship Workshop</h4>
+            <p>Hands-on training sessions for startups and young entrepreneurs.</p>
+          </div>
+        </div>
+        <div class="gallery-item anim-scale">
+          <img src="slide 2.png" alt="Networking gala">
+          <div class="gallery-caption">
+            <h4>Networking Gala</h4>
+            <p>An evening of connecting business leaders and fostering partnerships.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section id="news" style="background-image: url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80');">
+    <div class="section-overlay"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">News &amp; Updates</h2>
+      <div class="grid stagger">
+        <div class="card"><i class="fas fa-calendar-check"></i><h3>UCCEC Annual Summit 2025</h3><p>Join us in Kampala for the largest business networking event. <br><small style="color:var(--accent);">March 15-17</small></p></div>
+        <div class="card"><i class="fas fa-seedling"></i><h3>New SME Support Program</h3><p>Launch of a mentorship initiative for startups in the agricultural sector.</p></div>
+        <div class="card"><i class="fas fa-plane"></i><h3>Trade Mission to Dubai</h3><p>UCCEC leads delegation to explore export opportunities for Ugandan products.</p></div>
+      </div>
+      <div class="news-footer anim-fade">
+        <a href="news.html" class="btn btn-outline" style="font-size:1.05rem; padding: 16px 48px;">
+          <i class="fas fa-newspaper" style="margin-right: 10px;"></i> View More News
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP EVENTS -->
+  <section id="membership-events" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.82);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">Membership Events</h2>
+      <div class="grid stagger">
+        <div class="card">
+          <i class="fas fa-users"></i>
+          <h3>Gathering of Professionals</h3>
+          <p>UCCEC shall organize a meeting or event where business professionals, entrepreneurs, or industry experts come together to share knowledge, network, and discuss relevant topics.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-calendar-alt"></i>
+          <h3>Upcoming Events</h3>
+          <p>Stay tuned for our quarterly networking dinners, industry roundtables, and annual business forums designed to foster collaboration and growth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO BECOME A MEMBER -->
+  <section id="how-to-join" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.80);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">How to Become a UCCEC Member</h2>
+      <div style="max-width: 800px; margin: 0 auto;">
+        <div class="card anim-scale" style="text-align: center; padding: 40px 30px;">
+          <i class="fas fa-id-card" style="font-size: 3rem; color: var(--accent); margin-bottom: 20px;"></i>
+          <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-light);">
+            UCCEC has different membership categories with varying fees. Interested eligible persons pay a <strong style="color: var(--accent);">one-time registration fee of UGX. 50,000</strong> (Approx. USD 14.08) to become members of the organization.
+          </p>
+          <div style="margin-top: 30px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+            <a href="member.html" class="btn btn-primary">Join Now</a>
+            <a href="about.html" class="btn btn-outline">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERNSHIPS -->
+  <section id="internships" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&q=80');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.78);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">Internship Programs</h2>
+      <div class="grid stagger">
+        <div class="card">
+          <i class="fas fa-graduation-cap"></i>
+          <h3>Student Internships</h3>
+          <p>UCCEC through its members and allies locally and internationally, arrange different internship packages to students in higher institutions of learning.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-globe-americas"></i>
+          <h3>International Opportunities</h3>
+          <p>Through our global network, we connect students and recent graduates with internship placements across Africa, Europe, and the Middle East.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-handshake"></i>
+          <h3>Partner With Us</h3>
+          <p>Are you an employer or organization? Partner with UCCEC to host interns and shape the next generation of business leaders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section id="partners" style="background: rgba(255,255,255,0.02); padding:70px 6%;">
+    <div class="section-content">
+      <h2 class="title anim-fade">Our Partners</h2>
+      <div class="partners-grid anim-scale">
+        <img src="nc.png" alt="Partner 1">
+        <img src="https://via.placeholder.com/150x60/333/666?text=Partner+2" alt="Partner 2">
+        <img src="https://via.placeholder.com/150x60/333/666?text=Partner+3" alt="Partner 3">
+        <img src="https://via.placeholder.com/150x60/333/666?text=Partner+4" alt="Partner 4">
+        <img src="https://via.placeholder.com/150x60/333/666?text=Partner+5" alt="Partner 5">
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter" style="background: linear-gradient(135deg, rgba(200,16,46,0.15), rgba(0,0,0,0.85)); padding:80px 6%;">
+    <div class="section-content">
+      <h2 class="title anim-fade">Stay Updated</h2>
+      <p style="color:#ccc; text-align:center; margin-bottom:25px; max-width:500px; margin-left:auto; margin-right:auto;">Subscribe to our newsletter for the latest news, events, and opportunities.</p>
+      <form class="newsletter-form anim-scale" onsubmit="alert('Thank you for subscribing!'); return false;">
+        <input type="email" placeholder="Your email address" required>
+        <button type="submit" class="btn btn-primary" style="padding:16px 36px;">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1600&q=80');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.78);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">Frequently Asked Questions</h2>
+      <div style="max-width:800px; margin:0 auto; display:flex; flex-direction:column; gap:4px;">
+        <div class="faq-item anim-slide-up">
+          <div class="faq-question" onclick="toggleFAQ(this)">Who can join UCCEC? <span>+</span></div>
+          <div class="faq-answer">Any registered business, entrepreneur, or professional in Uganda committed to ethical business practices.</div>
+        </div>
+        <div class="faq-item anim-slide-up">
+          <div class="faq-question" onclick="toggleFAQ(this)">What are the membership benefits? <span>+</span></div>
+          <div class="faq-answer">Access to networks, training, policy advocacy, legal support, and trade missions.</div>
+        </div>
+        <div class="faq-item anim-slide-up">
+          <div class="faq-question" onclick="toggleFAQ(this)">How can I partner with UCCEC? <span>+</span></div>
+          <div class="faq-answer">Reach out via our contact form or email us at partnership@uccec.com</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="background-image: url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600&q=80');">
+    <div class="section-overlay" style="background: rgba(10, 10, 10, 0.85);"></div>
+    <div class="section-content">
+      <h2 class="title anim-fade">Get In Touch</h2>
+      <div style="max-width:600px; margin:0 auto; background:rgba(0,0,0,0.5); backdrop-filter:blur(10px); padding:40px 30px; border-radius:36px; border:1px solid rgba(255,255,255,0.06);">
+        <form id="contactForm">
+          <input type="text" placeholder="Full Name" style="width:100%; padding:16px 20px; border-radius:40px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.04); color:white; margin-bottom:18px; outline:none; transition:0.2s;">
+          <input type="email" placeholder="Email Address" style="width:100%; padding:16px 20px; border-radius:40px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.04); color:white; margin-bottom:18px; outline:none; transition:0.2s;">
+          <textarea placeholder="Your Message..." rows="4" style="width:100%; padding:16px 20px; border-radius:24px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.04); color:white; margin-bottom:22px; outline:none; resize:vertical; transition:0.2s;"></textarea>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+        </form>
+        <div class="social-links anim-scale" style="margin-top: 30px;">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://x.com/UCCEC2025" aria-label="Twitter / X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="padding:60px 6% 30px; border-top:1px solid rgba(255,255,255,0.04); background: #0C0C0C;">
+    <div class="footer-grid">
+      <div>
+        <h4>UCCEC</h4>
+        <p>Uganda Chamber of Commerce &amp; Entrepreneurs' League Confederation</p>
       </div>
       <div>
-        <p style="font-weight: 600; margin-bottom: 15px;">Follow Us</p>
-        <div style="display: flex; gap: 15px;">
-          <a href="#" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: var(--secondary-color); color: white; border-radius: 50%; text-decoration: none;"><i class="fab fa-facebook"></i></a>
-          <a href="#" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: var(--secondary-color); color: white; border-radius: 50%; text-decoration: none;"><i class="fab fa-twitter"></i></a>
-          <a href="#" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: var(--secondary-color); color: white; border-radius: 50%; text-decoration: none;"><i class="fab fa-linkedin"></i></a>
-          <a href="#" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: var(--secondary-color); color: white; border-radius: 50%; text-decoration: none;"><i class="fab fa-instagram"></i></a>
-        </div>
+        <h4>Quick Links</h4>
+        <a href="#about">About Us</a>
+        <a href="#services">Services</a>
+        <a href="#events">Events</a>
+        <a href="member.html">Join Us</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="#" onclick="openBookings(); return false;">My Bookings</a>
+        <a href="#">Membership Form</a>
+        <a href="#">Annual Report</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p><i class="fas fa-phone" style="color:var(--accent);"></i> 0704 384 371</p>
+        <p><i class="fas fa-envelope" style="color:var(--accent);"></i> info@uccec.com</p>
+        <p><i class="fas fa-map-marker-alt" style="color:var(--accent);"></i> Kampala, Uganda</p>
       </div>
     </div>
-    <div>
-      <h3 style="color: var(--primary-color); margin-bottom: 20px;">Send us a Message</h3>
-      <form style="display: flex; flex-direction: column; gap: 15px;">
-        <input type="text" placeholder="Your Name" required style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
-        <input type="email" placeholder="Your Email" required style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
-        <input type="text" placeholder="Subject" required style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
-        <textarea placeholder="Message" rows="5" required style="padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; font-family: Poppins, sans-serif;"></textarea>
-        <button type="submit" class="btn btn-primary">Send Message</button>
+    <div style="text-align:center; padding-top:30px; margin-top:30px; border-top:1px solid rgba(255,255,255,0.05);">
+      <p style="color:#666; font-size:13px;">© 2026 UCCEC. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://x.com/UCCEC2025" aria-label="Twitter / X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== MODALS ===== -->
+
+  <!-- 1. REGISTER MODAL -->
+  <div class="modal-overlay" id="registerModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('registerModal')"><i class="fas fa-times"></i></button>
+      <h2>Register for Event</h2>
+      <p class="sub">Fill in your details to secure your spot</p>
+      <div id="registerEventInfo"></div>
+      <form onsubmit="handleRegister(event)">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="John" required></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe" required></div>
+        </div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com" required></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+256 700 000 000" required></div>
+        <div class="form-group"><label>Organization (optional)</label><input type="text" placeholder="Your company name"></div>
+        <button type="submit" class="btn-submit"><i class="fas fa-check-circle" style="margin-right:10px;"></i> Register Now</button>
       </form>
     </div>
   </div>
-</section>
 
-<!-- Footer -->
-<footer>
-  <div class="footer-content">
-    <div class="footer-section">
-      <h3>UCCEC</h3>
-      <p>Uganda Chamber of Commerce & Entrepreneurs' League Confederation - Promoting Coffee Production, Entrepreneurship, Investment, Trade and Sustainable Development.</p>
-    </div>
-    <div class="footer-section">
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#events">Events</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Services</h3>
-      <ul>
-        <li><a href="#services">Training & Development</a></li>
-        <li><a href="#services">Market Access</a></li>
-        <li><a href="#services">Export Assistance</a></li>
-        <li><a href="#services">Business Consulting</a></li>
-      </ul>
-    </div>
-    <div class="footer-section">
-      <h3>Resources</h3>
-      <ul>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Publications</a></li>
-        <li><a href="#">FAQs</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
-      </ul>
+  <!-- 2. LEARN MORE MODAL -->
+  <div class="modal-overlay" id="learnMoreModal">
+    <div class="modal-card wide">
+      <button class="modal-close" onclick="closeModal('learnMoreModal')"><i class="fas fa-times"></i></button>
+      <h2 id="learnTitle"></h2>
+      <div id="learnEventDetails" style="margin-bottom:12px;"></div>
+      <img id="learnImage" class="event-image" src="" alt="Event image">
+      <div class="price-tag" id="learnPrice"></div>
+      <p id="learnDescription" style="color:#ccc; line-height:1.8; margin-bottom:16px;"></p>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <button class="btn-submit" style="flex:1; min-width:140px;" onclick="handleBookNow()"><i class="fas fa-calendar-check" style="margin-right:10px;"></i> Book Now</button>
+        <button class="btn-secondary" style="flex:1; min-width:140px;" onclick="closeModal('learnMoreModal')">Close</button>
+      </div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <p>&copy; 2026 Uganda Chamber of Commerce & Entrepreneurs' League Confederation. All rights reserved.</p>
+
+  <!-- 3. APPLY MODAL -->
+  <div class="modal-overlay" id="applyModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal('applyModal')"><i class="fas fa-times"></i></button>
+      <h2>Apply for Trip</h2>
+      <p class="sub">Complete your application for the trade mission</p>
+      <div id="applyEventInfo"></div>
+      <form onsubmit="handleApply(event)">
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="John" required></div>
+          <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe" required></div>
+        </div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@example.com" required></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+256 700 000 000" required></div>
+        <div class="form-group"><label>Company / Organization</label><input type="text" placeholder="Your company name" required></div>
+        <div class="form-group"><label>Position / Title</label><input type="text" placeholder="e.g., CEO, Manager"></div>
+        <div class="form-group"><label>Why do you want to join this mission?</label><textarea rows="3" placeholder="Tell us about your goals..." style="width:100%; padding:14px 18px; border-radius:16px; border:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.04); color:white; font-size:15px; outline:none; resize:vertical;"></textarea></div>
+        <div class="form-group"><label>Payment Method</label>
+          <div class="payment-options" id="applyPaymentOptions">
+            <button type="button" class="active" data-method="mobile"><i class="fas fa-mobile-alt"></i> Mobile Money</button>
+            <button type="button" data-method="card"><i class="fas fa-credit-card"></i> Card</button>
+            <button type="button" data-method="bank"><i class="fas fa-university"></i> Bank Transfer</button>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit"><i class="fas fa-paper-plane" style="margin-right:10px;"></i> Submit Application</button>
+      </form>
+    </div>
   </div>
-</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <!-- 4. BOOKINGS PAGE (My Bookings) -->
+  <div class="modal-overlay" id="bookingsModal">
+    <div class="modal-card wide">
+      <button class="modal-close" onclick="closeModal('bookingsModal')"><i class="fas fa-times"></i></button>
+      <h2>My Bookings</h2>
+      <p class="sub">Your upcoming trips and events</p>
+      <div class="bookings-list" id="bookingsList">
+        <!-- Dynamically populated -->
+      </div>
+      <div style="margin-top:20px; text-align:center; color:#888; font-size:14px;">
+        <i class="fas fa-info-circle" style="color:var(--accent);"></i> Your bookings are saved locally. Check back anytime.
+      </div>
+    </div>
+  </div>
 
-<script src="js/main.js"></script>
+  <!-- ===== BOOKING SYSTEM ===== -->
+  <script src="booking-system.js"></script>
 
-<script src="js/slider.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
 
-<script src="js/countdown.js"></script>
+    // ===== HERO LOGO PARALLAX =====
+    const heroLogo = document.getElementById('hero-logo');
+    gsap.to(heroLogo, {
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1.8 },
+      scale: window.innerWidth < 600 ? 0.5 : 0.32,
+      y: window.innerWidth < 600 ? -120 : -280,
+      x: window.innerWidth < 992 ? 0 : -380,
+      ease: "power2.inOut"
+    });
 
-<script src="js/gallery.js"></script>
+    // ===== FAST SCROLL ANIMATIONS =====
+    document.addEventListener('DOMContentLoaded', function() {
+      // Use Intersection Observer for fast fade-in
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -30px 0px'
+      };
 
-<script src="js/animations.js"></script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
 
+      // Observe all animation elements
+      document.querySelectorAll('.anim-fade, .anim-scale, .anim-slide-up, .stagger').forEach(el => {
+        observer.observe(el);
+      });
+
+      // Also observe individual cards inside grids that don't have parent stagger
+      document.querySelectorAll('.grid:not(.stagger) .card, .spotlight-grid .spotlight-item, .gallery-item, .story-card, .faq-item').forEach(el => {
+        // Check if it already has an animation class
+        if (!el.classList.contains('anim-fade') && !el.classList.contains('anim-scale') && !el.classList.contains('anim-slide-up')) {
+          // Add a small delay based on index for staggered effect
+          const parent = el.closest('.grid, .spotlight-grid, .gallery-grid');
+          if (parent) {
+            const index = Array.from(parent.children).indexOf(el);
+            el.style.transitionDelay = (index * 0.05) + 's';
+          }
+          el.classList.add('anim-fade');
+          observer.observe(el);
+        }
+      });
+    });
+
+    // ===== COUNTDOWN TIMER =====
+    function startCountdown() {
+      const targetDate = new Date('March 15, 2025 09:00:00').getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+          document.getElementById('days').textContent = '00';
+          document.getElementById('hours').textContent = '00';
+          document.getElementById('minutes').textContent = '00';
+          document.getElementById('seconds').textContent = '00';
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    }
+
+    // ===== MOBILE MENU =====
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMenu = document.getElementById('close-menu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.add('active'));
+    closeMenu.addEventListener('click', () => mobileMenu.classList.remove('active'));
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('active'));
+    });
+
+    // ===== FAQ TOGGLE =====
+    function toggleFAQ(el) {
+      const answer = el.nextElementSibling;
+      const sign = el.querySelector('span');
+      if (answer.style.display === 'block') {
+        answer.style.display = 'none';
+        sign.textContent = '+';
+      } else {
+        answer.style.display = 'block';
+        sign.textContent = '−';
+      }
+    }
+
+    // ===== CONTACT FORM =====
+    const form = document.getElementById('contactForm');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('✅ Thank you! Your message has been sent to UCCEC.');
+        this.reset();
+      });
+    }
+
+    // ===== DESKTOP NAV ACTIVE =====
+    document.querySelectorAll('.desktop-nav a, .mobile-menu a').forEach(link => {
+      link.addEventListener('click', function() {
+        document.querySelectorAll('.desktop-nav a').forEach(l => l.classList.remove('active'));
+        if (this.closest('.desktop-nav')) this.classList.add('active');
+      });
+    });
+
+    // ===== MODAL FUNCTIONS =====
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.modal-overlay').forEach(el => {
+      el.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.active').forEach(el => {
+          el.classList.remove('active');
+        });
+        document.body.style.overflow = '';
+      }
+    });
+
+    // ===== REGISTER MODAL =====
+    function openRegisterModal(title, date, location, price) {
+      document.getElementById('registerEventInfo').innerHTML = `
+        <div class="event-detail"><i class="fas fa-calendar"></i> ${date}</div>
+        <div class="event-detail"><i class="fas fa-map-marker-alt"></i> ${location}</div>
+        <div class="event-detail" style="color:var(--accent); font-weight:700; font-size:1.2rem;">Fee: ${price}</div>
+      `;
+      document.getElementById('registerModal').dataset.title = title;
+      openModal('registerModal');
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const title = document.getElementById('registerModal').dataset.title || 'Event';
+      alert(`✅ You have successfully registered for "${title}"!\n\nWe will send you a confirmation email shortly.`);
+      closeModal('registerModal');
+      if (typeof addBooking === 'function') {
+        addBooking(title, 'Registered', new Date().toLocaleDateString());
+      }
+      updateBookingBadge();
+    }
+
+    // ===== LEARN MORE MODAL =====
+    function openLearnMoreModal(title, date, location, price, image, description) {
+      document.getElementById('learnTitle').textContent = title;
+      document.getElementById('learnEventDetails').innerHTML = `
+        <div class="event-detail"><i class="fas fa-calendar"></i> ${date}</div>
+        <div class="event-detail"><i class="fas fa-map-marker-alt"></i> ${location}</div>
+      `;
+      document.getElementById('learnImage').src = image;
+      document.getElementById('learnPrice').textContent = price;
+      document.getElementById('learnDescription').textContent = description;
+      document.getElementById('learnMoreModal').dataset.title = title;
+      document.getElementById('learnMoreModal').dataset.date = date;
+      document.getElementById('learnMoreModal').dataset.price = price;
+      openModal('learnMoreModal');
+    }
+
+    function handleBookNow() {
+      const title = document.getElementById('learnMoreModal').dataset.title || 'Event';
+      const date = document.getElementById('learnMoreModal').dataset.date || 'TBD';
+      const price = document.getElementById('learnMoreModal').dataset.price || '$0';
+      alert(`✅ You have booked "${title}"!\n\nDate: ${date}\nPrice: ${price}\n\nWe will send you a confirmation with payment details.`);
+      closeModal('learnMoreModal');
+      if (typeof addBooking === 'function') {
+        addBooking(title, 'Booked', date);
+      }
+      updateBookingBadge();
+    }
+
+    // ===== APPLY MODAL =====
+    function openApplyModal(title, date, location, price) {
+      document.getElementById('applyEventInfo').innerHTML = `
+        <div class="event-detail"><i class="fas fa-calendar"></i> ${date}</div>
+        <div class="event-detail"><i class="fas fa-map-marker-alt"></i> ${location}</div>
+        <div class="event-detail" style="color:var(--accent); font-weight:700; font-size:1.2rem;">Fee: ${price}</div>
+      `;
+      document.getElementById('applyModal').dataset.title = title;
+      document.querySelectorAll('#applyPaymentOptions button').forEach(btn => {
+        btn.onclick = function() {
+          document.querySelectorAll('#applyPaymentOptions button').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        };
+      });
+      openModal('applyModal');
+    }
+
+    function handleApply(e) {
+      e.preventDefault();
+      const title = document.getElementById('applyModal').dataset.title || 'Trip';
+      const payment = document.querySelector('#applyPaymentOptions .active');
+      const method = payment ? payment.textContent.trim() : 'Mobile Money';
+      alert(`✅ Your application for "${title}" has been submitted!\n\nPayment Method: ${method}\n\nWe will review your application and get back to you within 48 hours.`);
+      closeModal('applyModal');
+      if (typeof addBooking === 'function') {
+        addBooking(title, 'Applied', new Date().toLocaleDateString());
+      }
+      updateBookingBadge();
+    }
+
+    // ===== BOOKINGS SYSTEM =====
+    function getBookings() {
+      try {
+        return JSON.parse(localStorage.getItem('uccec_bookings')) || [];
+      } catch { return []; }
+    }
+
+    function saveBookings(bookings) {
+      localStorage.setItem('uccec_bookings', JSON.stringify(bookings));
+    }
+
+    if (typeof addBooking !== 'function') {
+      function addBooking(title, status, date) {
+        const bookings = getBookings();
+        bookings.unshift({
+          title: title,
+          status: status,
+          date: date,
+          bookedAt: new Date().toISOString()
+        });
+        saveBookings(bookings);
+        updateBookingBadge();
+      }
+    }
+
+    function updateBookingBadge() {
+      const bookings = getBookings();
+      const badge = document.getElementById('bookingBadge');
+      if (badge) {
+        badge.textContent = bookings.length;
+      }
+    }
+
+    function openBookings() {
+      const bookings = getBookings();
+      const list = document.getElementById('bookingsList');
+      if (bookings.length === 0) {
+        list.innerHTML = `
+          <div style="text-align:center; padding:40px 20px; color:#888;">
+            <i class="fas fa-calendar-plus" style="font-size:3rem; color:var(--accent); margin-bottom:16px; display:block;"></i>
+            <p>You have no bookings yet.</p>
+            <p style="font-size:13px; margin-top:8px;">Register for an event or apply for a trip to get started!</p>
+          </div>
+        `;
+      } else {
+        list.innerHTML = bookings.map(b => `
+          <div class="booking-item">
+            <div class="info">
+              <strong>${b.title}</strong>
+              <span><i class="fas fa-calendar-alt" style="color:var(--accent);"></i> ${b.date}</span>
+            </div>
+            <span class="status">${b.status}</span>
+          </div>
+        `).join('');
+      }
+      openModal('bookingsModal');
+    }
+
+    document.querySelector('a[href="#"]')?.addEventListener('click', function(e) {
+      if (this.textContent.includes('My Bookings')) {
+        e.preventDefault();
+        openBookings();
+      }
+    });
+
+    // ===== PAYMENT OPTIONS TOGGLE =====
+    document.querySelectorAll('#applyPaymentOptions button').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#applyPaymentOptions button').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // ===== INITIALIZE =====
+    updateBookingBadge();
+    startCountdown();
+
+    console.log('✅ UCCEC website loaded with fast animations.');
+  </script>
 </body>
-
 </html>
