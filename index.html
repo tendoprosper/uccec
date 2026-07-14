@@ -10,6 +10,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
+  <!-- ===== GOOGLE SIGN-IN ===== -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
   <style>
     /* ——— Red, Black & White ——— */
     :root {
@@ -23,6 +26,338 @@
       --text-light: #F0F0F0;
       --text-muted: #C0C0C0;
       --white: #FFFFFF;
+      --glass-bg: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ——— LIGHT MODE (Black & White) ——— */
+    body.light-mode {
+      --primary: #F5F5F5;
+      --primary-light: #E8E8E8;
+      --accent: #333333;
+      --accent-hover: #555555;
+      --bg-deep: #FFFFFF;
+      --card-bg: rgba(0, 0, 0, 0.04);
+      --border-subtle: rgba(0, 0, 0, 0.1);
+      --text-light: #1A1A1A;
+      --text-muted: #555555;
+      --white: #1A1A1A;
+      --glass-bg: rgba(0, 0, 0, 0.04);
+      --glass-border: rgba(0, 0, 0, 0.06);
+    }
+
+    body.light-mode .card {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.06);
+    }
+    body.light-mode .card:hover {
+      background: rgba(0, 0, 0, 0.07);
+      border-color: #333;
+    }
+    body.light-mode .glass-card {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.06);
+    }
+    body.light-mode .glass-card:hover {
+      background: rgba(0, 0, 0, 0.07);
+    }
+    body.light-mode .china-advert {
+      background: linear-gradient(135deg, rgba(0,0,0,0.05), rgba(0,0,0,0.15));
+      border-color: rgba(0,0,0,0.15);
+    }
+    body.light-mode .china-advert .advert-content h2 span {
+      color: #333;
+    }
+    body.light-mode .china-advert .advert-content .price {
+      color: #333;
+    }
+    body.light-mode .china-advert .advert-content p {
+      color: #555;
+    }
+    body.light-mode .china-advert .advert-content .hot-badge {
+      background: #333;
+    }
+    body.light-mode .china-advert .btn-group .book-now {
+      background: #333;
+    }
+    body.light-mode .china-advert .btn-group .book-now:hover {
+      background: #555;
+    }
+    body.light-mode .china-advert .btn-group .view-details {
+      background: rgba(0,0,0,0.05);
+      color: #333;
+      border-color: rgba(0,0,0,0.1);
+    }
+    body.light-mode .china-advert .btn-group .view-details:hover {
+      background: rgba(0,0,0,0.1);
+    }
+    body.light-mode .floating-join {
+      background: #333;
+    }
+    body.light-mode .floating-join:hover {
+      background: #555;
+    }
+    body.light-mode .floating-bookings-btn {
+      background: rgba(0,0,0,0.05);
+      border-color: rgba(0,0,0,0.08);
+      color: #333;
+    }
+    body.light-mode .floating-bookings-btn:hover {
+      background: rgba(0,0,0,0.1);
+    }
+    body.light-mode .floating-bookings-btn .badge {
+      background: #333;
+    }
+    body.light-mode .visit-news-btn {
+      background: rgba(0,0,0,0.05);
+      border-color: rgba(0,0,0,0.08);
+      color: #333;
+    }
+    body.light-mode .visit-news-btn:hover {
+      background: #333;
+      color: white;
+    }
+    body.light-mode .visit-news-btn i {
+      color: #333;
+    }
+    body.light-mode .visit-news-btn:hover i {
+      color: white;
+    }
+    body.light-mode .btn-primary {
+      background: #333;
+      color: white;
+    }
+    body.light-mode .btn-primary:hover {
+      background: #555;
+    }
+    body.light-mode .btn-outline {
+      border-color: #333;
+      color: #333;
+    }
+    body.light-mode .btn-outline:hover {
+      background: #333;
+      color: white;
+    }
+    body.light-mode header {
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom-color: rgba(0, 0, 0, 0.08);
+    }
+    body.light-mode nav.desktop-nav a {
+      color: #555;
+    }
+    body.light-mode nav.desktop-nav a:hover {
+      color: #1A1A1A;
+      background: rgba(0,0,0,0.05);
+    }
+    body.light-mode nav.desktop-nav a.active {
+      background: #333;
+      color: white;
+    }
+    body.light-mode .hamburger {
+      color: #333;
+    }
+    body.light-mode .mobile-menu {
+      background: #f5f5f5;
+    }
+    body.light-mode .mobile-menu a {
+      color: #555;
+      border-bottom-color: rgba(0,0,0,0.05);
+    }
+    body.light-mode .mobile-menu a:hover {
+      color: #333;
+    }
+    body.light-mode .hero h1 span {
+      color: #333;
+    }
+    body.light-mode .hero {
+      background: linear-gradient(145deg, rgba(245,245,245,0.85), rgba(255,255,255,0.92));
+    }
+    body.light-mode .section-overlay {
+      background: rgba(255, 255, 255, 0.85);
+    }
+    body.light-mode .title {
+      color: #1A1A1A;
+      text-shadow: none;
+    }
+    body.light-mode .stats-grid h2 {
+      color: #333;
+    }
+    body.light-mode .stats-grid p {
+      color: #555;
+    }
+    body.light-mode .spotlight-item {
+      background: rgba(0,0,0,0.04);
+    }
+    body.light-mode .spotlight-item h4 {
+      color: #1A1A1A;
+    }
+    body.light-mode .spotlight-item p {
+      color: #555;
+    }
+    body.light-mode .spotlight-item .spotlight-avatar {
+      background: linear-gradient(135deg, #555, #888);
+    }
+    body.light-mode .story-card {
+      background: rgba(0,0,0,0.04);
+    }
+    body.light-mode .story-card h4 {
+      color: #1A1A1A;
+    }
+    body.light-mode .story-card .story-company {
+      color: #333;
+    }
+    body.light-mode .story-card .story-quote {
+      color: #555;
+    }
+    body.light-mode .story-card .story-icon {
+      color: #333;
+    }
+    body.light-mode .footer-grid h4 {
+      color: #1A1A1A;
+    }
+    body.light-mode .footer-grid a {
+      color: #555;
+    }
+    body.light-mode .footer-grid a:hover {
+      color: #333;
+    }
+    body.light-mode .footer-grid p {
+      color: #555;
+    }
+    body.light-mode footer {
+      background: #f5f5f5;
+      border-top-color: rgba(0,0,0,0.05);
+    }
+    body.light-mode .footer-social a {
+      color: #555;
+      border-color: rgba(0,0,0,0.05);
+    }
+    body.light-mode .footer-social a:hover {
+      color: #333;
+      border-color: #333;
+    }
+    body.light-mode .faq-question {
+      color: #333;
+    }
+    body.light-mode .faq-answer {
+      color: #555;
+    }
+    body.light-mode .newsletter-form input {
+      border-color: rgba(0,0,0,0.1);
+      background: rgba(0,0,0,0.04);
+      color: #1A1A1A;
+    }
+    body.light-mode .newsletter-form input::placeholder {
+      color: #999;
+    }
+    body.light-mode .contact-card {
+      background: rgba(0,0,0,0.04);
+    }
+    body.light-mode .contact-card h3 {
+      color: #1A1A1A;
+    }
+    body.light-mode .contact-card p {
+      color: #555;
+    }
+    body.light-mode .contact-card a {
+      color: #333;
+    }
+    body.light-mode .social-links a {
+      border-color: rgba(0,0,0,0.08);
+      color: #555;
+    }
+    body.light-mode .social-links a:hover {
+      background: #333;
+      color: white;
+    }
+    body.light-mode .mission-card {
+      background: rgba(0,0,0,0.04);
+    }
+    body.light-mode .mission-card .mission-body h3 {
+      color: #1A1A1A;
+    }
+    body.light-mode .mission-card .mission-body .mission-meta {
+      color: #555;
+    }
+    body.light-mode .mission-card .mission-body .mission-price {
+      color: #333;
+    }
+    body.light-mode .mission-card .mission-body .mission-dest span {
+      color: #555;
+      border-color: rgba(0,0,0,0.08);
+    }
+    body.light-mode .mission-card .mission-body .mission-btn {
+      background: #333;
+    }
+    body.light-mode .mission-card .mission-body .mission-btn:hover {
+      background: #555;
+    }
+    body.light-mode .modal-card {
+      background: #f5f5f5;
+    }
+    body.light-mode .modal-card h2 {
+      color: #1A1A1A;
+    }
+    body.light-mode .modal-card .sub {
+      color: #555;
+    }
+    body.light-mode .modal-card .event-detail {
+      color: #555;
+    }
+    body.light-mode .modal-card .form-group label {
+      color: #555;
+    }
+    body.light-mode .modal-card .form-group input,
+    body.light-mode .modal-card .form-group select,
+    body.light-mode .modal-card .form-group textarea {
+      border-color: rgba(0,0,0,0.08);
+      background: rgba(0,0,0,0.04);
+      color: #1A1A1A;
+    }
+    body.light-mode .modal-card .form-group input:focus,
+    body.light-mode .modal-card .form-group select:focus,
+    body.light-mode .modal-card .form-group textarea:focus {
+      border-color: #333;
+      background: rgba(0,0,0,0.06);
+    }
+    body.light-mode .modal-card .btn-submit {
+      background: #333;
+    }
+    body.light-mode .modal-card .btn-submit:hover {
+      background: #555;
+    }
+    body.light-mode .modal-card .btn-secondary {
+      border-color: #333;
+      color: #333;
+    }
+    body.light-mode .modal-card .btn-secondary:hover {
+      background: #333;
+      color: white;
+    }
+    body.light-mode .modal-card .booking-item {
+      background: rgba(0,0,0,0.04);
+    }
+    body.light-mode .modal-card .booking-item .info strong {
+      color: #1A1A1A;
+    }
+    body.light-mode .modal-card .booking-item .info span {
+      color: #555;
+    }
+    body.light-mode .glass-overlay {
+      background: rgba(255, 255, 255, 0.85);
+    }
+    body.light-mode .countdown-item {
+      background: rgba(0,0,0,0.04);
+      border-color: rgba(0,0,0,0.06);
+    }
+    body.light-mode .countdown-item .number {
+      color: #333;
+    }
+    body.light-mode .countdown-item .label {
+      color: #555;
+    }
+    body.light-mode .video-wrapper {
+      border-color: rgba(0,0,0,0.06);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -32,6 +367,51 @@
       overflow-x: hidden;
       background: var(--bg-deep);
       -webkit-font-smoothing: antialiased;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* ——— LIGHT MODE TOGGLE ——— */
+    .theme-toggle {
+      position: fixed;
+      top: 80px;
+      right: 28px;
+      z-index: 999;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-light);
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      border-color: var(--accent);
+    }
+    body.light-mode .theme-toggle {
+      background: rgba(0,0,0,0.05);
+      border-color: rgba(0,0,0,0.08);
+      color: #333;
+    }
+    body.light-mode .theme-toggle:hover {
+      border-color: #333;
+    }
+
+    @media (max-width: 600px) {
+      .theme-toggle {
+        top: 75px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
     }
 
     /* ——— NAVBAR ——— */
@@ -46,7 +426,7 @@
       backdrop-filter: blur(20px);
       z-index: 1000;
       border-bottom: 1px solid var(--border-subtle);
-      transition: 0.2s;
+      transition: 0.2s, background 0.4s ease;
     }
 
     .logo-container {
@@ -176,6 +556,7 @@
       padding: 150px 6% 80px;
       position: relative;
       overflow: hidden;
+      transition: background 0.4s ease;
     }
 
     .hero-content {
@@ -214,6 +595,111 @@
       border: 1px solid rgba(200, 16, 46, 0.2);
     }
 
+    /* ===== GOOGLE SIGN-IN SECTION ===== */
+    .auth-section {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .google-signin-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--text-light);
+      font-weight: 500;
+      font-size: 15px;
+      text-decoration: none;
+    }
+    .google-signin-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .google-signin-btn img {
+      width: 24px;
+      height: 24px;
+    }
+    body.light-mode .google-signin-btn {
+      background: rgba(0,0,0,0.04);
+      border-color: rgba(0,0,0,0.08);
+      color: #333;
+    }
+    body.light-mode .google-signin-btn:hover {
+      background: rgba(0,0,0,0.08);
+    }
+
+    .user-profile-mini {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      padding: 8px 16px 8px 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 50px;
+    }
+    .user-profile-mini.active {
+      display: flex;
+    }
+    .user-profile-mini .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .user-profile-mini .user-name {
+      color: var(--text-light);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .user-profile-mini .user-email {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    .user-profile-mini .logout-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 14px;
+      transition: .3s;
+      padding: 4px 8px;
+      border-radius: 30px;
+    }
+    .user-profile-mini .logout-btn:hover {
+      color: var(--accent);
+      background: rgba(200,16,46,0.1);
+    }
+    .user-profile-mini .profile-link {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 4px 10px;
+      border-radius: 30px;
+      transition: .3s;
+    }
+    .user-profile-mini .profile-link:hover {
+      background: rgba(255,255,255,0.05);
+    }
+    body.light-mode .user-profile-mini {
+      background: rgba(0,0,0,0.04);
+      border-color: rgba(0,0,0,0.06);
+    }
+    body.light-mode .user-profile-mini .user-name {
+      color: #1A1A1A;
+    }
+    body.light-mode .user-profile-mini .profile-link {
+      color: #1A1A1A;
+    }
+
     /* ——— SECTIONS ——— */
     section { 
       padding: 100px 6%; 
@@ -228,6 +714,7 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(10, 10, 10, 0.80);
       z-index: 0;
+      transition: background 0.4s ease;
     }
 
     .section-content {
@@ -554,7 +1041,7 @@
       font-weight: 900;
     }
     .stats-grid p {
-      color: #aaa;
+      color: var(--text-muted);
     }
 
     /* ——— NEWSLETTER ——— */
@@ -573,7 +1060,7 @@
       border-radius: 50px;
       border: 1px solid rgba(255,255,255,0.1);
       background: rgba(255,255,255,0.05);
-      color: white;
+      color: var(--white);
       outline: none;
       font-size: 15px;
     }
@@ -591,13 +1078,13 @@
       text-align: left;
     }
     .footer-grid h4 {
-      color: white;
+      color: var(--white);
       font-weight: 700;
       margin-bottom: 16px;
     }
     .footer-grid a {
       display: block;
-      color: #888;
+      color: var(--text-muted);
       text-decoration: none;
       padding: 4px 0;
       font-size: 14px;
@@ -607,7 +1094,7 @@
       color: var(--accent);
     }
     .footer-grid p {
-      color: #888;
+      color: var(--text-muted);
       font-size: 14px;
       line-height: 1.8;
     }
@@ -1040,13 +1527,15 @@
       border: 1px solid rgba(255,255,255,0.06);
       box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
-    .video-wrapper iframe {
+    .video-wrapper video {
       width: 100%;
       height: 450px;
       display: block;
+      object-fit: cover;
+      background: #000;
     }
 
-    /* ===== MEMBER SPOTLIGHT ===== */
+    /* ===== MEMBER SPOTLIGHT - 2 per row on mobile ===== */
     .spotlight-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -1079,7 +1568,7 @@
       color: white;
     }
     .spotlight-item h4 {
-      color: white;
+      color: var(--white);
       font-size: 1rem;
       font-weight: 700;
     }
@@ -1243,7 +1732,7 @@
     .mission-card .mission-body h3 {
       font-size: 18px;
       font-weight: 700;
-      color: white;
+      color: var(--white);
       margin-bottom: 4px;
     }
 
@@ -1251,7 +1740,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px 16px;
-      color: #aaa;
+      color: var(--text-muted);
       font-size: 13px;
       margin: 6px 0 10px;
     }
@@ -1271,7 +1760,7 @@
     .mission-card .mission-body .mission-price small {
       font-size: 13px;
       font-weight: 400;
-      color: #aaa;
+      color: var(--text-muted);
     }
 
     .mission-card .mission-body .mission-dest {
@@ -1287,7 +1776,7 @@
       padding: 2px 10px;
       border-radius: 30px;
       font-size: 10px;
-      color: #ccc;
+      color: var(--text-muted);
     }
 
     .mission-card .mission-body .mission-btn {
@@ -1360,10 +1849,25 @@
       .modal-card { padding: 30px 20px; }
       .modal-card .form-row { grid-template-columns: 1fr; }
       .modal-card .payment-options { grid-template-columns: 1fr 1fr; }
-      .video-wrapper iframe { height: 320px; }
+      .video-wrapper video { height: 320px; }
       .countdown-item { padding: 12px 18px; min-width: 60px; }
       .countdown-item .number { font-size: 2rem; }
       .missions-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .spotlight-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .spotlight-item {
+        padding: 18px 14px;
+      }
+      .spotlight-item .spotlight-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+      }
     }
 
     @media (max-width: 600px) {
@@ -1395,12 +1899,16 @@
       .china-advert .advert-content h2 { font-size: 24px; }
       .china-advert .advert-content .price { font-size: 22px; }
       .china-advert .advert-image { width: 100px; height: 100px; }
-      .video-wrapper iframe { height: 220px; }
+      .video-wrapper video { height: 220px; }
       .countdown-wrapper { gap: 12px; }
       .countdown-item { padding: 10px 14px; min-width: 50px; }
       .countdown-item .number { font-size: 1.6rem; }
-      .spotlight-grid { grid-template-columns: 1fr 1fr; }
+      .spotlight-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
       .missions-grid { grid-template-columns: 1fr; }
+      .google-signin-btn { font-size: 12px; padding: 8px 14px; }
+      .google-signin-btn img { width: 20px; height: 20px; }
+      .auth-section { flex-direction: column; align-items: stretch; }
+      .user-profile-mini { justify-content: center; }
     }
 
     @media (max-width: 400px) {
@@ -1413,6 +1921,13 @@
       .floating-bookings-btn i { font-size: 0.8rem; }
       .visit-news-btn { bottom: 70px; left: 10px; padding: 8px 10px; font-size: 0.65rem; }
       .visit-news-btn i { font-size: 0.8rem; }
+      .spotlight-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .spotlight-item .spotlight-avatar { width: 50px; height: 50px; font-size: 20px; }
+      .spotlight-item h4 { font-size: 14px; }
+      .spotlight-item p { font-size: 12px; }
+    }
+
+    @media (max-width: 350px) {
       .spotlight-grid { grid-template-columns: 1fr; }
     }
 
@@ -1440,6 +1955,11 @@
   </style>
 </head>
 <body>
+
+  <!-- ===== THEME TOGGLE BUTTON ===== -->
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle light/dark mode">
+    <i class="fas fa-moon" id="themeIcon"></i>
+  </button>
 
   <!-- ===== FLOATING ICONS ===== -->
 
@@ -1506,6 +2026,39 @@
       <h1 class="reveal">Uganda Chamber of Commerce <br><span>&amp; Entrepreneurs' League</span> Confederation</h1>
       <p class="reveal" style="margin: 22px 0 36px; font-size: 1.1rem; opacity: 0.85; max-width: 600px; line-height: 1.7;">Dedicated to protecting businesses, promoting ethical entrepreneurship, and driving Uganda's socio‑economic transformation.</p>
       <button class="btn btn-primary reveal" onclick="document.getElementById('focus').scrollIntoView({behavior:'smooth'})">Explore Our Focus Areas</button>
+      
+      <!-- ===== GOOGLE SIGN-IN ===== -->
+      <div class="auth-section">
+        <!-- Google Sign-In Button (hidden when signed in) -->
+        <div id="googleSignInContainer">
+          <div id="g_id_onload"
+            data-client_id="42505684713-j5d47a77o43vrhski2ji61jg2cjfv67n.apps.googleusercontent.com"
+            data-context="signin"
+            data-ux_mode="popup"
+            data-callback="handleGoogleSignIn"
+            data-auto_prompt="false">
+          </div>
+          <div class="g_id_signin"
+            data-type="standard"
+            data-shape="rectangular"
+            data-theme="outline"
+            data-text="continue_with"
+            data-size="large"
+            data-logo_alignment="left">
+          </div>
+        </div>
+
+        <!-- User Profile Mini (shown when signed in) -->
+        <div class="user-profile-mini" id="userProfileMini">
+          <img src="" alt="Profile" class="avatar" id="userAvatar">
+          <div>
+            <div class="user-name" id="userDisplayName">User</div>
+            <div class="user-email" id="userDisplayEmail">user@gmail.com</div>
+          </div>
+          <a href="profile.html" class="profile-link"><i class="fas fa-user"></i> Profile</a>
+          <button class="logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i></button>
+        </div>
+      </div>
     </div>
     <div class="hero-img">
       <img id="hero-logo" src="https://uccec.com/wp-content/uploads/2025/08/logo_uccec.png" alt="UCCEC main logo">
@@ -1641,7 +2194,16 @@
       <h2 class="title anim-fade">🎥 Welcome to UCCEC</h2>
       <p style="text-align:center; color:var(--text-muted); margin-bottom:30px; font-size:1.1rem;">Watch our introduction video to learn more about who we are and what we do.</p>
       <div class="video-wrapper anim-scale">
-        <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="UCCEC Introduction" frameborder="0" allowfullscreen></iframe>
+        <video id="mainVideo" autoplay muted playsinline loop>
+          <source src="33.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div style="position:relative; margin-top:-50px; padding:10px 20px; background:rgba(0,0,0,0.6); backdrop-filter:blur(10px); display:flex; justify-content:center; gap:20px; flex-wrap:wrap; border-radius:0 0 28px 28px;">
+          <button onclick="toggleVideoPlay()" style="background:none; border:none; color:white; font-size:18px; cursor:pointer; display:flex; align-items:center; gap:8px;">
+            <i class="fas" id="videoPlayIcon">⏸️</i> <span id="videoPlayText">Pause</span>
+          </button>
+          <span style="color:#888; font-size:14px; display:flex; align-items:center;">🎵 Sound available</span>
+        </div>
       </div>
     </div>
   </section>
@@ -1777,7 +2339,7 @@
     </div>
   </section>
 
-  <!-- ===== MEMBER SPOTLIGHT ===== -->
+  <!-- ===== MEMBER SPOTLIGHT - 2 per row on mobile ===== -->
   <section style="background: rgba(255,255,255,0.01); padding:80px 6%;">
     <div class="section-content">
       <h2 class="title anim-fade">⭐ Member Spotlight</h2>
@@ -2155,6 +2717,128 @@
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
+    // ===== GOOGLE SIGN-IN HANDLER =====
+    function handleGoogleSignIn(response) {
+      // Decode the JWT token to get user info
+      const payload = response.credential.split('.')[1];
+      const decoded = JSON.parse(atob(payload));
+      
+      // Save user info
+      const userData = {
+        email: decoded.email,
+        name: decoded.name,
+        picture: decoded.picture,
+        given_name: decoded.given_name,
+        family_name: decoded.family_name,
+        signedInAt: new Date().toISOString()
+      };
+      
+      localStorage.setItem('uccec_google_user', JSON.stringify(userData));
+      
+      // Update UI
+      updateUserUI(userData);
+      
+      // Auto-subscribe to newsletter
+      alert('✅ Signed in as: ' + userData.email + '\n\nYou have been automatically subscribed to UCCEC updates!');
+      
+      // Add to bookings system as user
+      if (typeof addBooking === 'function') {
+        // The booking system will use this email
+        localStorage.setItem('uccec_user_email', userData.email);
+      }
+    }
+
+    // ===== UPDATE USER UI =====
+    function updateUserUI(user) {
+      const container = document.getElementById('googleSignInContainer');
+      const profile = document.getElementById('userProfileMini');
+      
+      if (user) {
+        container.style.display = 'none';
+        profile.classList.add('active');
+        document.getElementById('userDisplayName').textContent = user.name || user.given_name || 'User';
+        document.getElementById('userDisplayEmail').textContent = user.email || '';
+        if (user.picture) {
+          document.getElementById('userAvatar').src = user.picture;
+        } else {
+          document.getElementById('userAvatar').src = 'https://ui-avatars.com/api/?name=' + (user.name || 'User') + '&background=c8102e&color=fff&size=36';
+        }
+      } else {
+        container.style.display = 'block';
+        profile.classList.remove('active');
+      }
+    }
+
+    // ===== CHECK EXISTING SESSION =====
+    function checkGoogleSession() {
+      const savedUser = localStorage.getItem('uccec_google_user');
+      if (savedUser) {
+        try {
+          const user = JSON.parse(savedUser);
+          updateUserUI(user);
+          // Also set email for bookings
+          localStorage.setItem('uccec_user_email', user.email);
+        } catch {}
+      }
+    }
+
+    // ===== LOGOUT =====
+    function handleLogout() {
+      localStorage.removeItem('uccec_google_user');
+      localStorage.removeItem('uccec_user_email');
+      updateUserUI(null);
+      // Also sign out from Google
+      if (window.google && window.google.accounts) {
+        window.google.accounts.id.disableAutoSelect();
+      }
+      alert('✅ You have been signed out.');
+    }
+
+    // ===== THEME TOGGLE =====
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      const icon = document.getElementById('themeIcon');
+      if (document.body.classList.contains('light-mode')) {
+        icon.className = 'fas fa-sun';
+      } else {
+        icon.className = 'fas fa-moon';
+      }
+      localStorage.setItem('uccec_theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    }
+
+    // ===== VIDEO CONTROLS =====
+    let isVideoPlaying = true;
+
+    function toggleVideoPlay() {
+      const video = document.getElementById('mainVideo');
+      const icon = document.getElementById('videoPlayIcon');
+      const text = document.getElementById('videoPlayText');
+      
+      if (video.paused) {
+        video.play();
+        icon.className = 'fas fa-pause';
+        text.textContent = 'Pause';
+        isVideoPlaying = true;
+      } else {
+        video.pause();
+        icon.className = 'fas fa-play';
+        text.textContent = 'Play';
+        isVideoPlaying = false;
+      }
+    }
+
+    // ===== LOAD THEME =====
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('uccec_theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        document.getElementById('themeIcon').className = 'fas fa-sun';
+      }
+      
+      // Check Google session
+      checkGoogleSession();
+    });
+
     // ===== HERO LOGO PARALLAX =====
     const heroLogo = document.getElementById('hero-logo');
     gsap.to(heroLogo, {
@@ -2452,7 +3136,8 @@
     updateBookingBadge();
     startCountdown();
 
-    console.log('✅ UCCEC website loaded with Missions section.');
+    console.log('✅ UCCEC website loaded with Google Sign-In.');
   </script>
+
 </body>
 </html>
